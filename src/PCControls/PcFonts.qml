@@ -4,10 +4,10 @@ import QtQuick
 
 QtObject {
     property FontLoader materialIconFont : FontLoader{
-        source : "./fonts/MaterialSymbolsOutlined-Regular.ttf"
+        source :  "file:///" + PcFileHelper.getLocalFilePathOfResource("./fonts/MaterialSymbolsOutlined-VariableFont_FILL,GRAD,opsz,wght.ttf")
     }
 
     property FontLoader notoSansSCFont : FontLoader{
-        source : "./fonts/NotoSansSC-Regular.ttf"
+        source :  "file:///" + PcFileHelper.getLocalFilePathOfResource("./fonts/NotoSansSC-Regular.ttf")
     }
 }

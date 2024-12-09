@@ -15,6 +15,8 @@ QtObject {
     property string info      : "#31CCEC"
     property string warning   : "#F2C037"
 
+    property string bottom_docker: "#d5e3fb"
+
     property string dimmed_background       : "rgba(0, 0, 0, .4)"
     property string light_dimmed_background : "rgba(255, 255, 255, .6)"
 

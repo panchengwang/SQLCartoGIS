@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 3.16)
 project(PCWangEditor VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(QML_IMPORT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../PCControls/" CACHE STRING "")
+set(QML_IMPORT_PATH "${CMAKE_CURRENT_SOURCE_DIR}" CACHE STRING "")
 
-message(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
+# message(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
 find_package(Qt6 6.5 REQUIRED COMPONENTS Quick)
 
 qt_standard_project_setup(REQUIRES 6.5)
@@ -36,8 +36,11 @@ set_target_properties(PCWangEditor PROPERTIES
 #     PRIVATE Qt6::Quick
 # )
 
+# target_link_directories(PCWangEditor
+#     ../PCControls
+# )
 target_link_libraries(PCWangEditor
-    PRIVATE Qt6::Quick PcControlsplugin
+    PRIVATE Qt6::Quick
 )
 
 include(GNUInstallDirs)
@@ -54,6 +57,6 @@ install(TARGETS PCWangEditor
 
 # message(STATUS $<TARGET_FILE_NAME:PCWangEditor>)
 
-add_custom_command(TARGET PCWangEditor POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:PCWangEditor> ${CMAKE_BINARY_DIR}/bin
-)
+# add_custom_command(TARGET PCWangEditor POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:PCWangEditor> ${CMAKE_BINARY_DIR}/bin
+# )

@@ -85,7 +85,7 @@ QtObject {
     // property string md_add_business: "md_\ue729";
     // property string md_add_card: "md_\ueb86";
     // property string md_add_chart: "md_\ue97b";
-    // property string md_add_circle: "md_\ue147";
+    property string md_add_circle: "md_\ue147";
     // property string md_add_circle_outline: "md_\ue148";
     // property string md_add_comment: "md_\ue266";
     // property string md_add_home: "md_\uf8eb";
@@ -390,7 +390,7 @@ QtObject {
     // property string md_chat: "md_\ue0b7";
     // property string md_chat_bubble: "md_\ue0ca";
     // property string md_chat_bubble_outline: "md_\ue0cb";
-    // property string md_check: "md_\ue5ca";
+    property string md_check: "md_\ue5ca";
     // property string md_check_box: "md_\ue834";
     // property string md_check_box_outline_blank: "md_\ue835";
     // property string md_check_circle: "md_\ue86c";
@@ -411,7 +411,7 @@ QtObject {
     // property string md_cleaning_services: "md_\uf0ff";
     // property string md_clear: "md_\ue14c";
     // property string md_clear_all: "md_\ue0b8";
-    // property string md_close: "md_\ue5cd";
+    property string md_close: "md_\ue5cd";
     // property string md_close_fullscreen: "md_\uf1cf";
     // property string md_closed_caption: "md_\ue01c";
     // property string md_closed_caption_disabled: "md_\uf1dc";
@@ -1187,7 +1187,7 @@ QtObject {
     // property string md_markunread: "md_\ue159";
     // property string md_markunread_mailbox: "md_\ue89b";
     // property string md_masks: "md_\uf218";
-    // property string md_maximize: "md_\ue930";
+    property string md_maximize: "md_\ue930";
     // property string md_media_bluetooth_off: "md_\uf031";
     // property string md_media_bluetooth_on: "md_\uf032";
     // property string md_mediation: "md_\uefa7";
@@ -1212,7 +1212,7 @@ QtObject {
     // property string md_mic_off: "md_\ue02b";
     // property string md_microwave: "md_\uf204";
     // property string md_military_tech: "md_\uea3f";
-    // property string md_minimize: "md_\ue931";
+    property string md_minimize: "md_\ue931";
     // property string md_minor_crash: "md_\uebf1";
     // property string md_miscellaneous_services: "md_\uf10c";
     // property string md_missed_video_call: "md_\ue073";
@@ -1677,7 +1677,7 @@ QtObject {
     // property string md_sd_card: "md_\ue623";
     // property string md_sd_card_alert: "md_\uf057";
     // property string md_sd_storage: "md_\ue1c2";
-    // property string md_search: "md_\ue8b6";
+    property string md_search: "md_\ue8b6";
     // property string md_search_off: "md_\uea76";
     // property string md_security: "md_\ue32a";
     // property string md_security_update: "md_\uf058";
@@ -1703,7 +1703,7 @@ QtObject {
     // property string md_sentiment_very_dissatisfied: "md_\ue814";
     // property string md_sentiment_very_satisfied: "md_\ue815";
     // property string md_set_meal: "md_\uf1ea";
-    // property string md_settings: "md_\ue8b8";
+    property string md_settings: "md_\ue8b8";
     // property string md_settings_accessibility: "md_\uf05d";
     // property string md_settings_applications: "md_\ue8b9";
     // property string md_settings_backup_restore: "md_\ue8ba";
@@ -2198,4 +2198,6 @@ QtObject {
     // property string md_zoom_in_map: "md_\ueb2d";
     // property string md_zoom_out: "md_\ue900";
     // property string md_zoom_out_map: "md_\ue56b";
+
+    property string md_select_window: "md_\ue6fa";
 }

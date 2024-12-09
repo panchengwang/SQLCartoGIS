@@ -21,12 +21,34 @@ QtObject {
     property int button_implicit_width: button_implicit_height;
     property int button_border_width: 0;
     property int button_border_width_outlined: 1;
-    property int button_font_size: 11;
+    property int button_font_size: 10;
 
 
-    property int avatar_implicit_width: 40
-    property int avatar_implicit_height: 40
-    property int avatar_font_point_size: 24
+    property int avatar_implicit_width: 32
+    property int avatar_implicit_height: 32
+    property int avatar_font_point_size: 22
 
+
+    property int spacing: 10
+    property int margin: 5
+    property int padding: 5
+    property int radius: 3
+
+    property int text_font_size: 10
+
+    property int text_field_implicit_height: 28
+    property int text_field_implicit_width: 56
+    property int text_field_font_size: 10
+    property int text_field_padding: 3
+
+
+
+    property int panel_radius: 5
+
+
+
+    property int header_implicit_height: 40
+
+    property int panel_header_implicit_height: 32
 
 }

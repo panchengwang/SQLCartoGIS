@@ -4,8 +4,14 @@ project(PcControls VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(QT_QML_OUTPUT_DIRECTORY  ${CMAKE_BINARY_DIR})
+# set(QML_IMPORT_PATH "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" CACHE STRING "")
+set(QML_IMPORT_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+    CACHE STRING "extra qml import paths"
+    FORCE
+)
 
+# set(QT_QML_OUTPUT_DIRECTORY  ${CMAKE_BINARY_DIR}/bin)
+# message(STATUS "CMAKE_BINARY_DIR:" ${CMAKE_BINARY_DIR})
 find_package(Qt6 6.5 COMPONENTS Quick REQUIRED)
 
 list(APPEND SINGLETON_QML_FILES
@@ -16,6 +22,7 @@ list(APPEND SINGLETON_QML_FILES
     PcFileHelper.qml
     PcFontIcons.qml
     PcFonts.qml
+    PcApplication.qml
 )
 
 set_source_files_properties(${SINGLETON_QML_FILES}
@@ -28,6 +35,13 @@ list(APPEND QML_FILES
     PcApplicationWindow.qml
     PcButton.qml
     PcAvatar.qml
+    PcSeperator.qml
+    PcDialog.qml
+    PcLoginDialog.qml
+    PcText.qml
+    PcTextField.qml
+    PcOkCancelButtons.qml
+    PcSystemBar.qml
 )
 
 list(APPEND SOURCES
@@ -46,8 +60,10 @@ list(APPEND HEADERS
     PcFileUtils.h
 )
 
-qt_add_library(PcControls STATIC)
+# qt_add_library(PcControls SHARED)
 qt_add_qml_module(PcControls
+    PLUGIN_TARGET PcControls
+    OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls
     URI cn.pc.controls
     VERSION 1.0
     QML_FILES
@@ -59,10 +75,9 @@ qt_add_qml_module(PcControls
         ${HEADERS}
 
     RESOURCES
-        images/pcwang.png
-        fonts/MaterialSymbolsOutlined-Regular.ttf
-        fonts/NotoSansSC-Regular.ttf
-
+        # images/pcwang.png
+        # fonts/MaterialSymbolsOutlined-Regular.ttf
+        # fonts/NotoSansSC-Regular.ttf
 )
 
 set_target_properties(PcControls PROPERTIES
@@ -81,7 +96,8 @@ target_link_libraries(PcControls
 target_include_directories(PcControls PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_custom_command(TARGET PcControls POST_BUILD
-
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_BINARY_DIR}/../cn ${CMAKE_BINARY_DIR}/bin/cn
-    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:PcControls> ${CMAKE_BINARY_DIR}/bin/cn/pc/controls/$<TARGET_FILE_NAME:PcControls>
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/fonts ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/fonts
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/images ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/images
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/icons ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/icons
+    # COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:PcControls> ${CMAKE_BINARY_DIR}/bin/cn/pc/controls/$<TARGET_FILE_NAME:PcControls>
 )

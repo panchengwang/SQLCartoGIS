@@ -14,7 +14,7 @@ QtObject
     }
 
     function getLocalFilePathOfResource(resourcename){
-        return PcAppHelper.applicationDirPath() + "/" + PcFileHelper.path('' + Qt.resolvedUrl(resourcename))
+        return  PcAppHelper.applicationDirPath() + "/" + PcFileHelper.path('' + Qt.resolvedUrl(resourcename))
     }
 
 }

@@ -10,37 +10,43 @@ Rectangle{
 
     property string image : ""
     property string fontIcon: ""
+    property string iconColor: PcColors.primary
 
     width: PcStyles.avatar_implicit_width
     height: PcStyles.avatar_implicit_height
     border.width: 1
-    border.color: PcColors.grey_5
+    border.color: PcColors.grey_7
     radius: width*0.5
     color: "transparent"
 
     PcImage{
+        id: pcImage
         anchors.fill: parent
         anchors.margins: 2
         src:  avatar.image
-        radius: width * 0.5
+        radius: avatar.radius -1
         fillMode: Image.PreserveAspectCrop
         visible: src.trim() !== ""
     }
 
     Text{
         anchors.centerIn: parent
-        text: fontIcon.split('_')[1]
-        visible: text.trim() !== ""
-        font.pointSize: PcStyles.avatar_font_point_size
-        font.family: {
-            fontIcon.split('_')[0] === 'md' ? PcFonts.materialIconFont.name : PcFonts.notoSansSCFont.name
+        horizontalAlignment:Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        text: {
+            avatar.fontIcon.split('_')[0] === 'md' ? avatar.fontIcon.split('_')[1] : avatar.fontIcon
         }
-        color: PcColors.primary
+        visible: !pcImage.visible
+        font.pixelSize: avatar.width-5
+        font.family: {
+            avatar.fontIcon.split('_')[0] === 'md' ? PcFonts.materialIconFont.name : PcFonts.notoSansSCFont.name
+        }
+        color: avatar.iconColor // mousearea.containsMouse ? PcColors.primary : PcColors.grey_8
     }
 
     Rectangle{
         anchors.fill: parent
-        radius: width * 0.5
+        radius: avatar.radius
         color: mousearea.containsMouse ? "#33FFFFFF" : "transparent"
 
         MouseArea{

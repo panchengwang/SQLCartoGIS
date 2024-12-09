@@ -1,59 +1,66 @@
 import QtQuick
+import QtQuick.Controls.Basic
 import QtQuick.Layouts
-import cn.pc.controls
 
-Rectangle {
-    id: button
+Button {
+    id: control
+    text: ""
+    property string fontIcon: "" //PcFontIcons.md_check
 
-    property bool round: true;
-    property bool outlined: false;
-    signal clicked();
+    property string flatColor: PcColors.grey_9
+    property string flatBackgroundColor: "transparent"
+    property string flatMouseOverBackgroundColor: PcColors.grey_4
+    property string color: flat ? flatColor :  PcColors.white
+    property string backgroundColor: flat ? flatBackgroundColor : PcColors.indigo_5
+    property string mouseoverBackgroundColor: flat ? flatMouseOverBackgroundColor : PcColors.indigo_3
+    property int borderWidth: 0
 
-    implicitHeight: PcStyles.button_implicit_height
-    implicitWidth: PcStyles.button_implicit_width
+    padding: 0
+    leftPadding: PcStyles.padding
+    rightPadding: PcStyles.padding
 
-    color: outlined ?
-        ( mouse.containsMouse ? PcColors.grey_3 : PcColors.grey_1) :
-        ( mouse.containsMouse ? PcColors.primary_light : PcColors.primary)
+    contentItem: RowLayout{
 
-    radius: round ? height * 0.5 : 0
-    border.width: outlined ? 1 : 0
-    border.color: PcColors.grey_5
-    width: row.width < PcStyles.button_implicit_width ? PcStyles.button_implicit_width : row.width
-    RowLayout{
-        id: row
-        anchors.centerIn: parent
-
-        Text{
-            id: leftText
+        PcText{
+            id: textIcon
+            verticalAlignment: Text.AlignVCenter
+            text: {
+                control.fontIcon.split('_')[0] === 'md' ? control.fontIcon.split('_')[1] : control.fontIcon
+            }
+            visible: control.fontIcon.trim() !== ''
+            font.pointSize: 14
+            font.family: {
+                control.fontIcon.split('_')[0] === 'md' ? PcFonts.materialIconFont.name : PcFonts.notoSansSCFont.name
+            }
+            color: control.color
         }
 
-        Text{
+        PcText {
             id: label
             Layout.fillWidth: true
-            verticalAlignment: Text.AlignVCenter
+            text: control.text
+            font: control.font
+            visible: label.text.trim() !== ''
+            color: control.color
             horizontalAlignment: Text.AlignHCenter
-            text: "B"
-            color: outlined ?
-                ( mouse.containsMouse ? PcColors.grey_10 : PcColors.grey_7) :
-                PcColors.white
-            font.pointSize: PcStyles.button_font_size
-        }
-
-        Text{
-            id: rightText
+            verticalAlignment: Text.AlignVCenter
+            elide: Text.ElideRight
         }
     }
 
-    MouseArea{
-        id: mouse
-        anchors.fill: parent
-        hoverEnabled: true
+    background: Rectangle {
+        implicitWidth: PcStyles.button_implicit_width
+        implicitHeight: PcStyles.button_implicit_height
+        color: mouseArea.containsMouse ? control.mouseoverBackgroundColor: control.backgroundColor
+        border.color: control.color
+        border.width: control.borderWidth
+        radius: 2
 
-        onClicked: {
-            button.clicked();
+        MouseArea{
+            id: mouseArea
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: flat ? Qt.PointingHandCursor : Qt.ArrowCursor
         }
     }
-
-
 }
