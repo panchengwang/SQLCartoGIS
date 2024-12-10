@@ -5,14 +5,14 @@ import QtQuick.Layouts
 Button {
     id: control
     text: ""
-    property string fontIcon: "" //PcFontIcons.md_check
-
+    property string leftIcon: "" //PcFontIcons.md_check
+    property string rightIcon: ""
     property string flatColor: PcColors.grey_9
     property string flatBackgroundColor: "transparent"
     property string flatMouseOverBackgroundColor: PcColors.grey_4
-    property string color: flat ? flatColor :  PcColors.white
-    property string backgroundColor: flat ? flatBackgroundColor : PcColors.indigo_5
-    property string mouseoverBackgroundColor: flat ? flatMouseOverBackgroundColor : PcColors.indigo_3
+    property string color: flat ? flatColor :  PcColors.grey_9
+    property string backgroundColor: flat ? flatBackgroundColor : PcColors.grey_4
+    property string mouseoverBackgroundColor: flat ? flatMouseOverBackgroundColor : PcColors.grey_5
     property int borderWidth: 0
 
     padding: 0
@@ -21,18 +21,13 @@ Button {
 
     contentItem: RowLayout{
 
-        PcText{
-            id: textIcon
-            verticalAlignment: Text.AlignVCenter
-            text: {
-                control.fontIcon.split('_')[0] === 'md' ? control.fontIcon.split('_')[1] : control.fontIcon
-            }
-            visible: control.fontIcon.trim() !== ''
-            font.pointSize: 14
-            font.family: {
-                control.fontIcon.split('_')[0] === 'md' ? PcFonts.materialIconFont.name : PcFonts.notoSansSCFont.name
-            }
-            color: control.color
+        PcAvatar{
+            visible: leftIcon.trim() != ''
+            border.width: 0
+            Layout.preferredHeight: control.height -  PcStyles.margin
+            Layout.preferredWidth: Layout.preferredHeight
+            fontIcon: control.leftIcon
+            radius: 3
         }
 
         PcText {
@@ -45,6 +40,15 @@ Button {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
+        }
+
+        PcAvatar{
+            visible: rightIcon.trim() != ''
+            border.width: 0
+            Layout.preferredHeight: control.height - PcStyles.margin
+            Layout.preferredWidth: Layout.preferredHeight
+            fontIcon: control.rightIcon
+            radius: 3
         }
     }
 

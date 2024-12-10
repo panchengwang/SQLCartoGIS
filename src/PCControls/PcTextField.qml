@@ -6,7 +6,7 @@ TextField {
     id: control
 
     property int borderWidth: 1
-    property string backgroundColor: control.enabled ? PcColors.grey_1 : PcColors.grey_3
+    property string backgroundColor: control.enabled ? PcColors.white : PcColors.grey_3
     implicitHeight: PcStyles.text_field_implicit_height
     font.pointSize: PcStyles.text_field_font_size
     leftPadding: PcStyles.text_field_left_padding

@@ -13,7 +13,7 @@ Popup {
     property int maxWidth: 600
     property Item content: Rectangle{
         anchors.fill: parent
-        color: PcColors.indigo_1
+        color: PcColors.grey_1
     }
 
     clip: true
@@ -29,7 +29,7 @@ Popup {
         Rectangle{
             Layout.fillWidth: true
             implicitHeight: PcStyles.panel_header_implicit_height
-            color: PcColors.indigo_5
+            color: PcColors.grey_5
             topRightRadius: background.radius
             topLeftRadius: background.radius
 
@@ -40,12 +40,12 @@ Popup {
                 PcText{
                     Layout.fillWidth: true
                     text: dialog.title
-                    color: PcColors.white
+                    color:  PcColors.grey_9
                     font.pointSize: 12
                 }
                 PcAvatar{
                     fontIcon: PcFontIcons.md_minimize
-                    iconColor: PcColors.white
+                    iconColor: PcColors.grey_9
                     Layout.preferredWidth: 22
                     Layout.preferredHeight: 22
                     radius: 2
@@ -54,7 +54,7 @@ Popup {
 
                 PcAvatar{
                     fontIcon: PcFontIcons.md_select_window
-                    iconColor: PcColors.white
+                    iconColor:  PcColors.grey_9
                     Layout.preferredWidth: 22
                     Layout.preferredHeight: 22
                     radius: 2
@@ -63,7 +63,7 @@ Popup {
 
                 PcAvatar{
                     fontIcon: PcFontIcons.md_close
-                    iconColor: PcColors.white
+                    iconColor:  PcColors.grey_9
                     Layout.preferredWidth: 22
                     Layout.preferredHeight: 22
                     radius: 2
@@ -79,7 +79,7 @@ Popup {
             color: "transparent"
             Control {
                 anchors.fill: parent
-                anchors.margins: PcStyles.margin
+                anchors.margins: 2 * PcStyles.margin
                 contentItem: dialog.content
             }
 
@@ -88,7 +88,7 @@ Popup {
     }
 
     background: Rectangle{
-        color: PcColors.indigo_1
+        color: PcColors.grey_1
         radius: PcStyles.panel_radius
         border.color: PcColors.grey_5
         border.width: 1

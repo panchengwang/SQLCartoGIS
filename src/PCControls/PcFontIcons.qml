@@ -901,7 +901,7 @@ QtObject {
     // property string md_grid_goldenratio: "md_\uf017";
     // property string md_grid_off: "md_\ue3eb";
     // property string md_grid_on: "md_\ue3ec";
-    // property string md_grid_view: "md_\ue9b0";
+    property string md_grid_view: "md_\ue9b0";
     // property string md_group: "md_\ue7ef";
     // property string md_group_add: "md_\ue7f0";
     // property string md_group_off: "md_\ue747";
@@ -1171,7 +1171,7 @@ QtObject {
     // property string md_man_2: "md_\uf8e1";
     // property string md_man_3: "md_\uf8e2";
     // property string md_man_4: "md_\uf8e3";
-    // property string md_manage_accounts: "md_\uf02e";
+    property string md_manage_accounts: "md_\uf02e";
     // property string md_manage_history: "md_\uebe7";
     // property string md_manage_search: "md_\uf02f";
     // property string md_map: "md_\ue55b";
@@ -1293,7 +1293,7 @@ QtObject {
     // property string md_network_wifi_3_bar: "md_\uebe1";
     // property string md_new_label: "md_\ue609";
     // property string md_new_releases: "md_\ue031";
-    // property string md_newspaper: "md_\ueb81";
+    property string md_newspaper: "md_\ueb81";
     // property string md_next_plan: "md_\uef5d";
     // property string md_next_week: "md_\ue16a";
     // property string md_nfc: "md_\ue1bb";

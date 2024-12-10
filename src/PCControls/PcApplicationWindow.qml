@@ -8,7 +8,7 @@ ApplicationWindow{
     id: appWin
     title:  "PcWang GIS Editor"
     // flags: Qt.FramelessWindowHint
-    color: PcColors.grey_2
+    color: PcColors.white
 
     function center(){
         x= (Qt.application.screens[0].desktopAvailableWidth - width)  * 0.5
@@ -16,8 +16,29 @@ ApplicationWindow{
     }
 
     header: PcSystemBar{
+        onChangeSettings:{
+            const newObject = Qt.createQmlObject(`
+                 import QtQuick
 
+    PcSystemSettingPanel{
+        anchors.margins: PcStyles.margin
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: parent.width * 0.6
     }
+                 `,
+                 appWin.contentItem,
+                 "myDynamicSnippet"
+             );
+        }
+    }
+
+    // PcSystemSettingPanel{
+    //     anchors.margins: PcStyles.margin
+    //     anchors.top: parent.top
+    //     anchors.horizontalCenter: parent.horizontalCenter
+    //     width: parent.width * 0.6
+    // }
 
     // header: Rectangle{
     //     implicitHeight: PcStyles.header_implicit_height

@@ -4,8 +4,9 @@ import QtQuick.Controls
 
 PcDialog {
     id: dialog
-    height: 200 //column.height + panel.topPadding + panel.bottomPadding + panel.background.width * 2
+    height: 210 //column.height + panel.topPadding + panel.bottomPadding + panel.background.width * 2
     title: "Welcome to pcwang's GIS world!"
+
     content: ColumnLayout{
         id: column
         anchors.fill: parent

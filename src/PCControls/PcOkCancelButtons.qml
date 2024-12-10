@@ -5,6 +5,7 @@ RowLayout {
     id: buttons
     property string okButtonText: "OK"
     property string cancelButtonText: "Cancel"
+    property alias cancelButtonVisible: cancelButton.visible
 
     signal cancel()
     signal ok()
@@ -19,6 +20,7 @@ RowLayout {
     }
 
     PcButton{
+        id: cancelButton
         text: buttons.cancelButtonText
         onClicked: buttons.cancel()
     }

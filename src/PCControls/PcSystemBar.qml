@@ -3,62 +3,57 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 Rectangle{
+    id: systembar
+    signal changeSettings()
+
     implicitHeight: PcStyles.header_implicit_height
-    color: PcColors.indigo_5
+    color: PcColors.grey_4
 
     RowLayout{
         anchors.fill: parent
         anchors.rightMargin: PcStyles.margin
         anchors.leftMargin: 2 * PcStyles.margin
 
-        PcAvatar{
-            id: avatarSettings
-            // image: PcFileHelper.getLocalFilePathOfResource("./images/pcwang.png")
-            fontIcon: PcFontIcons.md_settings
-            iconColor: PcColors.white
-            border.width: 0
-            onClicked:{
-            }
-        }
-
-        // PcText{
-        //     Layout.fillWidth: true
-        //     text: appWin.title
-        //     font.pointSize: 13
-        //     color: PcColors.white
+        // PcAvatar{
+        //     id: avatarSettings
+        //     // image: PcFileHelper.getLocalFilePathOfResource("./images/pcwang.png")
+        //     fontIcon: PcFontIcons.md_settings
+        //     // iconColor: PcColors.grey_9
+        //     border.width: 0
+        //     onClicked:{
+        //         systembar.changeSettings()
+        //     }
         // }
 
-        Rectangle{
-            id: searchRect
-            radius: height * 0.5
-            border.width: 1
-            border.color: PcColors.grey_8
-            Layout.fillHeight: true
-            Layout.preferredWidth: 200
-            Layout.margins: PcStyles.margin-2
-            clip: true
-            RowLayout{
-                anchors.fill: parent
-                PcAvatar{
-                    fontIcon: PcFontIcons.md_search
-                    iconColor: PcColors.grey_8
-                    Layout.leftMargin: 3
-                    Layout.preferredWidth: Layout.preferredHeight
-                    Layout.preferredHeight: searchRect.height - 3
-                    border.width: 0
-                }
-
-                PcTextField{
-                    placeholderText:"Search"
-                    borderWidth: 0
-                    backgroundColor: "transparent"
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Layout.rightMargin: searchRect.height*0.5
-
-                }
-            }
+        PcText{
+            // Layout.fillWidth: true
+            text: "Welcome to PCWang's GIS world !" //appWin.title
+            font.pointSize: 13
+            color: PcColors.grey_9
         }
+
+        PcButton{
+            leftIcon: PcFontIcons.md_settings
+            text: "System"
+        }
+        PcButton{
+            leftIcon: PcFontIcons.md_grid_view
+            text: "View"
+        }
+
+        PcButton{
+            leftIcon: PcFontIcons.md_newspaper
+            text: "News"
+        }
+
+        PcButton{
+            leftIcon: PcFontIcons.md_manage_accounts
+            text: "Author"
+        }
+
+        // PcTextInput{
+
+        // }
 
 
         Item{
@@ -71,9 +66,30 @@ Rectangle{
             fontIcon: PcFontIcons.md_account_circle
             onClicked:{
                 if(!PcApplication.hasLogin()){
-                    loginPanel.y = 120
-                    loginPanel.open()
+                    const loginPanel = Qt.createQmlObject(
+                                         `
+                                         import QtQuick
+                                         import QtQuick.Controls
+                                         import QtQuick.Layouts
+                                         import cn.pc.controls
+
+                                         PcLoginDialog{
+                                         id: loginPanel
+                                         visible: true
+                                         modal: false
+                                         minWidth: 300
+                                         maxWidth: 600
+                                         closePolicy: modal ? Popup.CloseOnEscape : Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+                                         }
+                                         `,
+                                         PcApplication.appWin.contentItem,
+                                         "myDynamicSnippet"
+                                         );
+                    loginPanel.closed.connect(()=>{
+                                                  loginPanel.destroy()
+                                              } )
                 }
+
             }
         }
     }

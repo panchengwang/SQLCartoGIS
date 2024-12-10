@@ -75,6 +75,8 @@ qt_add_qml_module(PcControls
         ${HEADERS}
 
     RESOURCES
+    QML_FILES PcTextInput.qml
+    QML_FILES PcSystemSettingPanel.qml
         # images/pcwang.png
         # fonts/MaterialSymbolsOutlined-Regular.ttf
         # fonts/NotoSansSC-Regular.ttf
