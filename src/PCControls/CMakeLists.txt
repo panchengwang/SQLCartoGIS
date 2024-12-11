@@ -42,6 +42,11 @@ list(APPEND QML_FILES
     PcTextField.qml
     PcOkCancelButtons.qml
     PcSystemBar.qml
+    PcTextInput.qml
+    PcSystemSettingPanel.qml
+    PcTabView.qml
+    PcTabPanel.qml
+    PcTabButton.qml
 )
 
 list(APPEND SOURCES
@@ -67,19 +72,20 @@ qt_add_qml_module(PcControls
     URI cn.pc.controls
     VERSION 1.0
     QML_FILES
-        ${QML_FILES}
-        ${SINGLETON_QML_FILES}
+    ${QML_FILES}
+    ${SINGLETON_QML_FILES}
 
     SOURCES
-        ${SOURCES}
-        ${HEADERS}
+    ${SOURCES}
+    ${HEADERS}
 
     RESOURCES
-    QML_FILES PcTextInput.qml
-    QML_FILES PcSystemSettingPanel.qml
-        # images/pcwang.png
-        # fonts/MaterialSymbolsOutlined-Regular.ttf
-        # fonts/NotoSansSC-Regular.ttf
+    QML_FILES PcCatalog.qml
+
+
+    # images/pcwang.png
+    # fonts/MaterialSymbolsOutlined-Regular.ttf
+    # fonts/NotoSansSC-Regular.ttf
 )
 
 set_target_properties(PcControls PROPERTIES

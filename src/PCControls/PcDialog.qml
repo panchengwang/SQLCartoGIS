@@ -29,7 +29,7 @@ Popup {
         Rectangle{
             Layout.fillWidth: true
             implicitHeight: PcStyles.panel_header_implicit_height
-            color: PcColors.grey_5
+            color: PcColors.grey_4
             topRightRadius: background.radius
             topLeftRadius: background.radius
 
@@ -53,7 +53,7 @@ Popup {
                 }
 
                 PcAvatar{
-                    fontIcon: PcFontIcons.md_select_window
+                    fontIcon: PcFontIcons.md_crop_square
                     iconColor:  PcColors.grey_9
                     Layout.preferredWidth: 22
                     Layout.preferredHeight: 22
@@ -90,7 +90,7 @@ Popup {
     background: Rectangle{
         color: PcColors.grey_1
         radius: PcStyles.panel_radius
-        border.color: PcColors.grey_5
+        border.color: PcColors.grey_4
         border.width: 1
     }
 }

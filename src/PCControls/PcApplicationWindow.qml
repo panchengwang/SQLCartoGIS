@@ -10,6 +10,9 @@ ApplicationWindow{
     // flags: Qt.FramelessWindowHint
     color: PcColors.white
 
+
+    property int currentIndex: 0
+
     function center(){
         x= (Qt.application.screens[0].desktopAvailableWidth - width)  * 0.5
         y= (Qt.application.screens[0].desktopAvailableHeight - height)  * 0.5
@@ -18,19 +21,66 @@ ApplicationWindow{
     header: PcSystemBar{
         onChangeSettings:{
             const newObject = Qt.createQmlObject(`
-                 import QtQuick
+                                                 import QtQuick
 
-    PcSystemSettingPanel{
-        anchors.margins: PcStyles.margin
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        width: parent.width * 0.6
-    }
-                 `,
-                 appWin.contentItem,
-                 "myDynamicSnippet"
-             );
+                                                 PcSystemSettingPanel{
+                                                 anchors.margins: PcStyles.margin
+                                                 anchors.top: parent.top
+                                                 anchors.horizontalCenter: parent.horizontalCenter
+                                                 width: parent.width * 0.6
+                                                 }
+                                                 `,
+                                                 appWin.contentItem,
+                                                 "myDynamicSnippet"
+                                                 );
         }
+    }
+
+    SplitView{
+        anchors.fill: parent
+
+        orientation: Qt.Horizontal
+        PcCatalog{
+            SplitView.fillHeight: true
+            SplitView.preferredWidth: 200
+            // PcButton{
+            //     Layout.fillWidth: true
+            //     text: 'create table panel'
+            //     onClicked:{
+            //         var component = Qt.createComponent("PcTabPanel.qml");
+            //         if (component.status == Component.Ready) {
+            //             var panel = component.createObject();
+            //             appWin.currentIndex ++
+            //             panel.title = 'panel ' + appWin.currentIndex
+            //             panel.closeable = Math.random() > 0.5
+            //             tabView.add(panel)
+            //         }
+            //     }
+            // }
+
+            // Item{
+            //     Layout.fillHeight: true
+            // }
+        }
+
+        // Rectangle{
+        //             SplitView.fillWidth: true
+        //             SplitView.fillHeight: true
+        //             color: "#88FF0000"
+        //             }
+        PcTabView{
+            id: tabView
+            SplitView.fillWidth: true
+            SplitView.fillHeight: true
+            anchors.margins: 0
+        }
+
+
+        // Rectangle{
+        //     SplitView.fillHeight: true
+        //     SplitView.preferredWidth: 200
+        //     color: "blue"
+        // }
     }
 
     // PcSystemSettingPanel{

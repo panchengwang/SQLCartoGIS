@@ -178,9 +178,9 @@ QtObject {
     // property string md_arrow_drop_up: "md_\ue5c7";
     // property string md_arrow_forward: "md_\ue5c8";
     // property string md_arrow_forward_ios: "md_\ue5e1";
-    // property string md_arrow_left: "md_\ue5de";
+    property string md_arrow_left: "md_\ue5de";
     // property string md_arrow_outward: "md_\uf8ce";
-    // property string md_arrow_right: "md_\ue5df";
+    property string md_arrow_right: "md_\ue5df";
     // property string md_arrow_right_alt: "md_\ue941";
     // property string md_arrow_upward: "md_\ue5d8";
     // property string md_art_track: "md_\ue060";
@@ -483,18 +483,18 @@ QtObject {
     // property string md_credit_score: "md_\ueff1";
     // property string md_crib: "md_\ue588";
     // property string md_crisis_alert: "md_\uebe9";
-    // property string md_crop: "md_\ue3be";
+    property string md_crop: "md_\ue3be";
     // property string md_crop_16_9: "md_\ue3bc";
     // property string md_crop_3_2: "md_\ue3bd";
-    // property string md_crop_5_4: "md_\ue3bf";
-    // property string md_crop_7_5: "md_\ue3c0";
+    property string md_crop_5_4: "md_\ue3bf";
+    property string md_crop_7_5: "md_\ue3c0";
     // property string md_crop_din: "md_\ue3c1";
     // property string md_crop_free: "md_\ue3c2";
     // property string md_crop_landscape: "md_\ue3c3";
     // property string md_crop_original: "md_\ue3c4";
     // property string md_crop_portrait: "md_\ue3c5";
     // property string md_crop_rotate: "md_\ue437";
-    // property string md_crop_square: "md_\ue3c6";
+    property string md_crop_square: "md_\ue3c6";
     // property string md_cruelty_free: "md_\ue799";
     // property string md_css: "md_\ueb93";
     // property string md_currency_bitcoin: "md_\uebc5";
@@ -914,7 +914,7 @@ QtObject {
     // property string md_h_plus_mobiledata: "md_\uf019";
     // property string md_hail: "md_\ue9b1";
     // property string md_handshake: "md_\uebcb";
-    // property string md_handyman: "md_\uf10b";
+    property string md_handyman: "md_\uf10b";
     // property string md_hardware: "md_\uea59";
     // property string md_hd: "md_\ue052";
     // property string md_hdr_auto: "md_\uf01a";
@@ -1035,8 +1035,8 @@ QtObject {
     // property string md_keyboard: "md_\ue312";
     // property string md_keyboard_alt: "md_\uf028";
     // property string md_keyboard_arrow_down: "md_\ue313";
-    // property string md_keyboard_arrow_left: "md_\ue314";
-    // property string md_keyboard_arrow_right: "md_\ue315";
+    property string md_keyboard_arrow_left: "md_\ue314";
+    property string md_keyboard_arrow_right: "md_\ue315";
     // property string md_keyboard_arrow_up: "md_\ue316";
     // property string md_keyboard_backspace: "md_\ue317";
     // property string md_keyboard_capslock: "md_\ue318";
@@ -2200,4 +2200,5 @@ QtObject {
     // property string md_zoom_out_map: "md_\ue56b";
 
     property string md_select_window: "md_\ue6fa";
+    property string md_database: "md_\uf20e";
 }

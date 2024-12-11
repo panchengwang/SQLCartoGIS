@@ -11,13 +11,32 @@ Rectangle{
     property string image : ""
     property string fontIcon: ""
     property string iconColor: PcColors.primary
-
+    property bool clickable: true
+    property string mouseOverBackgroundColor: PcColors.grey_5
     width: PcStyles.avatar_implicit_width
     height: PcStyles.avatar_implicit_height
     border.width: 1
     border.color: PcColors.grey_7
     radius: width*0.5
     color: "transparent"
+
+
+    Rectangle{
+        anchors.fill: parent
+        radius: avatar.radius
+        color: mousearea.containsMouse ? avatar.mouseOverBackgroundColor : "transparent"
+
+        MouseArea{
+            id: mousearea
+            anchors.fill: parent
+            hoverEnabled: true
+            visible: avatar.clickable
+            onClicked: {
+                avatar.clicked()
+            }
+        }
+    }
+
 
     PcImage{
         id: pcImage
@@ -44,18 +63,5 @@ Rectangle{
         color: avatar.iconColor // mousearea.containsMouse ? PcColors.primary : PcColors.grey_8
     }
 
-    Rectangle{
-        anchors.fill: parent
-        radius: avatar.radius
-        color: mousearea.containsMouse ? "#33FFFFFF" : "transparent"
 
-        MouseArea{
-            id: mousearea
-            anchors.fill: parent
-            hoverEnabled: true
-            onClicked: {
-                avatar.clicked()
-            }
-        }
-    }
 }

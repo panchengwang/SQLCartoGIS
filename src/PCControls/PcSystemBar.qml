@@ -35,10 +35,42 @@ Rectangle{
         PcButton{
             leftIcon: PcFontIcons.md_settings
             text: "System"
+
+
+
         }
+
+
         PcButton{
             leftIcon: PcFontIcons.md_grid_view
             text: "View"
+            onClicked:{
+                viewMenu.open()
+            }
+            Popup {
+                id: viewMenu
+                width: 200
+                height: column.height + viewMenu.topPadding + viewMenu.bottomPadding
+                y: parent.height + PcStyles.margin
+                ColumnLayout{
+                    id: column
+                    width: parent.width
+                    spacing: 1
+                    PcButton{
+                        leftIcon: PcFontIcons.md_database
+                        text: "Spatial DB"
+                        Layout.fillWidth: true
+                        textAlignment: Text.AlignLeft
+                    }
+
+                    PcButton{
+                        leftIcon: PcFontIcons.md_handyman
+                        text: "ToolBox"
+                        Layout.fillWidth: true
+                        textAlignment: Text.AlignLeft
+                    }
+                }
+            }
         }
 
         PcButton{
