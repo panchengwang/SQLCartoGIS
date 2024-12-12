@@ -81,6 +81,7 @@ qt_add_qml_module(PcControls
 
     RESOURCES
     QML_FILES PcCatalog.qml
+    QML_FILES PcMapView.qml
 
 
     # images/pcwang.png

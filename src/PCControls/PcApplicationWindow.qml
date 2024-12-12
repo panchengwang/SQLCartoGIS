@@ -42,21 +42,25 @@ ApplicationWindow{
         orientation: Qt.Horizontal
         PcCatalog{
             SplitView.fillHeight: true
-            SplitView.preferredWidth: 200
-            // PcButton{
-            //     Layout.fillWidth: true
-            //     text: 'create table panel'
-            //     onClicked:{
-            //         var component = Qt.createComponent("PcTabPanel.qml");
-            //         if (component.status == Component.Ready) {
-            //             var panel = component.createObject();
-            //             appWin.currentIndex ++
-            //             panel.title = 'panel ' + appWin.currentIndex
-            //             panel.closeable = Math.random() > 0.5
-            //             tabView.add(panel)
-            //         }
-            //     }
-            // }
+            SplitView.preferredWidth: 300
+            PcButton{
+                Layout.fillWidth: true
+                text: 'create table panel'
+                onClicked:{
+                    var component = Qt.createComponent("PcTabPanel.qml");
+                    if (component.status == Component.Ready) {
+                        var panel = component.createObject();
+                        var num = Math.random();
+                        panel.title = 'panel ' + num;
+                        panel.closeable = true; // num > 0.5
+                        tabView.add(panel)
+                    }
+                }
+            }
+
+            PcTabButton{
+                Layout.fillWidth: true
+            }
 
             // Item{
             //     Layout.fillHeight: true

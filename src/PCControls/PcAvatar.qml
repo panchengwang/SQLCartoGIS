@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import cn.pc.controls
+
 
 Rectangle{
     id: avatar
@@ -18,24 +18,33 @@ Rectangle{
     border.width: 1
     border.color: PcColors.grey_7
     radius: width*0.5
-    color: "transparent"
+    opacity: mousearea.containsMouse ? 0.8 : 1
+    color: mousearea.containsMouse ? avatar.mouseOverBackgroundColor : "transparent"
 
-
-    Rectangle{
+    MouseArea{
+        id: mousearea
         anchors.fill: parent
-        radius: avatar.radius
-        color: mousearea.containsMouse ? avatar.mouseOverBackgroundColor : "transparent"
-
-        MouseArea{
-            id: mousearea
-            anchors.fill: parent
-            hoverEnabled: true
-            visible: avatar.clickable
-            onClicked: {
-                avatar.clicked()
-            }
+        hoverEnabled: true
+        visible: avatar.clickable
+        onClicked: {
+            avatar.clicked()
         }
     }
+    // Rectangle{
+    //     anchors.fill: parent
+    //     radius: avatar.radius
+    //     color: mousearea.containsMouse ? avatar.mouseOverBackgroundColor : "transparent"
+
+    //     MouseArea{
+    //         id: mousearea
+    //         anchors.fill: parent
+    //         hoverEnabled: true
+    //         visible: avatar.clickable
+    //         onClicked: {
+    //             avatar.clicked()
+    //         }
+    //     }
+    // }
 
 
     PcImage{

@@ -82,12 +82,13 @@ ColumnLayout{
                                     btn.isActivate = true
                                 })
             btn.closed.connect(()=>{
-                                   tabView.currentIndex = btn.index;
-                                   stack.currentIndex = tabView.currentIndex;
                                    var btns = rowButtons.children;
                                    if( btn.index === tabView.buttons.length-1){
-                                       tabView.currentIndex --
+                                       tabView.currentIndex = btn.index - 1
+                                   }else if(btn.index < tabView.currentIndex){
+                                       tabView.currentIndex --;
                                    }
+
                                    stack.currentIndex = tabView.currentIndex
 
                                    for(var i=btn.index; i<btns.length; i++){
@@ -97,6 +98,12 @@ ColumnLayout{
                                    tabView.panels.splice(tabView.panels.indexOf(panel),1)
                                    panel.destroy()
                                    btn.destroy()
+                                   for(var i=0; i<tabView.buttons.length; i++){
+                                       tabView.buttons[i].isActivate = false;
+                                   }
+                                   if(tabView.currentIndex >= 0){
+                                       tabView.buttons[tabView.currentIndex].isActivate = true;
+                                   }
                                })
             rowButtons.children.push(btn)
             for(var i=0; i<tabView.buttons.length; i++){
@@ -110,47 +117,5 @@ ColumnLayout{
     }
 
 
-    // TabBar {
-    //     id: bar
-    //     Layout.fillWidth: true
-    //     background:Rectangle{
-    //         border.width: 1
-    //         border.color: PcColors.grey_5
-    //     }
 
-    //     TabButton {
-    //         text: qsTr("Home")
-    //         contentItem:PcButton{
-    //             text: parent.text
-    //             rightIcon: PcFontIcons.md_close
-    //             onClicked:{
-    //                 parent.click()
-    //             }
-    //         }
-    //     }
-    //     TabButton {
-    //         text: qsTr("Discover")
-    //     }
-    //     TabButton {
-    //         text: qsTr("Activity")
-    //     }
-    // }
-
-    // StackLayout {
-    //     Layout.fillWidth: true
-    //     Layout.fillHeight: true
-    //     currentIndex: bar.currentIndex
-    //     Rectangle {
-    //         id: homeTab
-    //         color: "red"
-    //     }
-    //     Rectangle {
-    //         id: discoverTab
-    //         color: "green"
-    //     }
-    //     Rectangle {
-    //         id: activityTab
-    //         color: "blue"
-    //     }
-    // }
 }
