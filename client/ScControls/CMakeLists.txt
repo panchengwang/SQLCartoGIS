@@ -49,6 +49,14 @@ list(APPEND QML_FILES
     ScTabButton.qml
     ScCatalog.qml
     ScMapView.qml
+    ScPopup.qml
+    ScLoginPopup.qml
+    ScUserMenu.qml
+    ScAccountPanel.qml
+    ScNotify.qml
+    ScCheckbox.qml
+    ScLogPanel.qml
+    ScConnector.qml
 )
 
 list(APPEND SOURCES
@@ -57,6 +65,7 @@ list(APPEND SOURCES
     ScAppUtils.cpp
     ScDirUtils.cpp
     ScFileUtils.cpp
+    ScAjax.cpp
 )
 
 list(APPEND HEADERS
@@ -65,6 +74,7 @@ list(APPEND HEADERS
     ScAppUtils.h
     ScDirUtils.h
     ScFileUtils.h
+    ScAjax.h
 )
 
 # qt_add_library(ScControls SHARED)
@@ -74,14 +84,16 @@ qt_add_qml_module(ScControls
     URI cn.pc.controls
     VERSION 1.0
     QML_FILES
-        ${QML_FILES}
-        ${SINGLETON_QML_FILES}
+    ${QML_FILES}
+    ${SINGLETON_QML_FILES}
 
     SOURCES
-        ${SOURCES}
-        ${HEADERS}
+    ${SOURCES}
+    ${HEADERS}
 
     RESOURCES
+
+
     # images/pcwang.png
     # fonts/MaterialSymbolsOutlined-Regular.ttf
     # fonts/NotoSansSC-Regular.ttf

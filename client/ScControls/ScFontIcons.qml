@@ -685,8 +685,8 @@ QtObject {
     // property string md_enhance_photo_translate: "md_\ue8fc";
     // property string md_enhanced_encryption: "md_\ue63f";
     // property string md_equalizer: "md_\ue01d";
-    // property string md_error: "md_\ue000";
-    // property string md_error_outline: "md_\ue001";
+    property string md_error: "md_\ue000";
+    property string md_error_outline: "md_\ue001";
     // property string md_escalator: "md_\uf1a1";
     // property string md_escalator_warning: "md_\uf1ac";
     // property string md_euro: "md_\uea15";
@@ -998,7 +998,7 @@ QtObject {
     // property string md_inbox: "md_\ue156";
     // property string md_incomplete_circle: "md_\ue79b";
     // property string md_indeterminate_check_box: "md_\ue909";
-    // property string md_info: "md_\ue88e";
+    property string md_info: "md_\ue88e";
     // property string md_input: "md_\ue890";
     // property string md_insert_chart: "md_\ue24b";
     // property string md_insert_chart_outlined: "md_\ue26a";
@@ -1143,9 +1143,9 @@ QtObject {
     // property string md_lock_open: "md_\ue898";
     // property string md_lock_person: "md_\uf8f3";
     // property string md_lock_reset: "md_\ueade";
-    // property string md_login: "md_\uea77";
+    property string md_login: "md_\uea77";
     // property string md_logo_dev: "md_\uead6";
-    // property string md_logout: "md_\ue9ba";
+    property string md_logout: "md_\ue9ba";
     // property string md_looks: "md_\ue3fc";
     // property string md_looks_3: "md_\ue3fb";
     // property string md_looks_4: "md_\ue3fd";
@@ -1202,7 +1202,7 @@ QtObject {
     // property string md_menu_open: "md_\ue9bd";
     // property string md_merge: "md_\ueb98";
     // property string md_merge_type: "md_\ue252";
-    // property string md_message: "md_\ue0c9";
+    property string md_message: "md_\ue0c9";
     // property string md_messenger: "md_\ue0ca";
     // property string md_messenger_outline: "md_\ue0cb";
     // property string md_mic: "md_\ue029";
@@ -1386,7 +1386,7 @@ QtObject {
     // property string md_paragliding: "md_\ue50f";
     // property string md_park: "md_\uea63";
     // property string md_party_mode: "md_\ue7fa";
-    // property string md_password: "md_\uf042";
+    property string md_password: "md_\uf042";
     // property string md_paste: "md_\uf098";
     // property string md_pattern: "md_\uf043";
     // property string md_pause: "md_\ue034";
@@ -1419,7 +1419,7 @@ QtObject {
     // property string md_person_2: "md_\uf8e4";
     // property string md_person_3: "md_\uf8e5";
     // property string md_person_4: "md_\uf8e6";
-    // property string md_person_add: "md_\ue7fe";
+    property string md_person_add: "md_\ue7fe";
     // property string md_person_add_alt: "md_\uea4d";
     // property string md_person_add_alt_1: "md_\uef65";
     // property string md_person_add_disabled: "md_\ue9cb";
@@ -2126,7 +2126,7 @@ QtObject {
     // property string md_wallet_travel: "md_\ue8f8";
     // property string md_wallpaper: "md_\ue75f";
     // property string md_warehouse: "md_\uebb8";
-    // property string md_warning: "md_\ue002";
+    property string md_warning: "md_\ue002";
     // property string md_warning_amber: "md_\uf083";
     // property string md_wash: "md_\uf1b1";
     // property string md_watch: "md_\ue334";

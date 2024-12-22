@@ -23,6 +23,7 @@ QtObject {
     property int button_border_width_outlined: 1;
     property int button_font_size: 10;
 
+    property int checkbox_indicator_size: 22
 
     property int avatar_implicit_width: 32
     property int avatar_implicit_height: 32

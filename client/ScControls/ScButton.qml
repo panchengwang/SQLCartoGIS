@@ -13,7 +13,7 @@ Button {
     property string flatMouseOverBackgroundColor: ScColors.grey_4
     property string color: isActivate ? focusColor : ( flat ? flatColor :  ScColors.grey_9)
     property string backgroundColor:isActivate ? focusBackgroundColor : ( flat ? flatBackgroundColor : ScColors.grey_4)
-    property string mouseoverBackgroundColor: flat ? flatMouseOverBackgroundColor : ScColors.grey_5
+    property string mouseoverBackgroundColor: isActivate ? focusBackgroundColor : (flat ? flatMouseOverBackgroundColor : ScColors.grey_5)
     property int borderWidth: 0
     property string borderColor: control.color
     property int radius: 2
@@ -23,6 +23,8 @@ Button {
     property string focusBackgroundColor: ScColors.primary
     property string focusColor: ScColors.white
     property int textAlignment: Text.AlignHCenter
+
+    property bool mouseOvered: mouseArea.containsMouse
 
     signal rightIconClicked()
     signal leftIconClicked()
@@ -39,7 +41,7 @@ Button {
             Layout.preferredHeight: control.height -  ScStyles.margin
             Layout.preferredWidth: Layout.preferredHeight
             fontIcon: control.leftIcon
-            radius: 3
+            radius: 0.5 * height
             clickable: control.leftIconClickStandalone
             onClicked: control.leftIconClicked()
             iconColor: control.isActivate ? control.focusColor : control.iconColor
@@ -63,7 +65,7 @@ Button {
             Layout.preferredHeight: control.height - ScStyles.margin
             Layout.preferredWidth: Layout.preferredHeight
             fontIcon: control.rightIcon
-            radius: 3
+            radius: 0.5 * height
             clickable: control.rightIconClickStandalone
             onClicked: control.rightIconClicked()
             iconColor: control.isActivate ? control.focusColor : control.iconColor

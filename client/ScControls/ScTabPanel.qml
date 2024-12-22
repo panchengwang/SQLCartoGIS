@@ -4,6 +4,8 @@ Rectangle {
 
     id: tabPanel
 
+    signal closed()
+
     property string title: 'tabPanel'
     property bool closeable: true
     property string icon: ''

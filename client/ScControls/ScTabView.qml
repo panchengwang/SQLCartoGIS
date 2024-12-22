@@ -13,7 +13,7 @@ ColumnLayout{
     property var buttons: []
     property var panels: []
     property int currentIndex: -1
-
+    property int tabButtonWidth: 120
     Rectangle{
         Layout.fillWidth: true
         Layout.preferredHeight: ScStyles.button_implicit_height
@@ -82,6 +82,9 @@ ColumnLayout{
             btn.closeable = panel.closeable
             btn.index = tabView.currentIndex
             btn.leftIcon = panel.icon
+            btn.Layout.preferredWidth = tabView.tabButtonWidth
+            btn.background.topLeftRadius = 0.25 * btn.height
+            btn.background.topRightRadius = 0.25 * btn.height
 
             btn.clicked.connect(()=>{
                                     tabView.currentIndex = btn.index;
@@ -122,9 +125,33 @@ ColumnLayout{
             btn.isActivate = true
 
             panel.dataChanged.connect(()=>{
-                btn.text = panel.title
-                btn.closeable = panel.closeable
-            })
+                                          btn.text = panel.title
+                                          btn.closeable = panel.closeable
+                                      })
+            panel.closed.connect(()=>{
+                                     var btns = rowButtons.children;
+                                     if( btn.index === tabView.buttons.length-1){
+                                         tabView.currentIndex = btn.index - 1
+                                     }else if(btn.index < tabView.currentIndex){
+                                         tabView.currentIndex --;
+                                     }
+
+                                     stack.currentIndex = tabView.currentIndex
+
+                                     for(var i=btn.index; i<btns.length; i++){
+                                         btns[i].index --;
+                                     }
+                                     tabView.buttons.splice(tabView.buttons.indexOf(btn),1)
+                                     tabView.panels.splice(tabView.panels.indexOf(panel),1)
+                                     panel.destroy()
+                                     btn.destroy()
+                                     for(var i=0; i<tabView.buttons.length; i++){
+                                         tabView.buttons[i].isActivate = false;
+                                     }
+                                     if(tabView.currentIndex >= 0){
+                                         tabView.buttons[tabView.currentIndex].isActivate = true;
+                                     }
+                                 })
         }
         stack.children.push(panel)
         stack.currentIndex = tabView.currentIndex
