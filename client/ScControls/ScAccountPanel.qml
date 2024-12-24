@@ -160,6 +160,11 @@ ScTabPanel {
             ScApplication.notify.open()
             return false;
         }
+        if(txtVerifyCode.text.trim() === ''){
+            ScApplication.notify.message = "Please input verify code.";
+            ScApplication.notify.open()
+            return false;
+        }
         return true
     }
 }

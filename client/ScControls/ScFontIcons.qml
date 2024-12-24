@@ -173,7 +173,7 @@ QtObject {
     // property string md_arrow_circle_right: "md_\ueaaa";
     // property string md_arrow_circle_up: "md_\uf182";
     // property string md_arrow_downward: "md_\ue5db";
-    // property string md_arrow_drop_down: "md_\ue5c5";
+    property string md_arrow_drop_down: "md_\ue5c5";
     // property string md_arrow_drop_down_circle: "md_\ue5c6";
     // property string md_arrow_drop_up: "md_\ue5c7";
     // property string md_arrow_forward: "md_\ue5c8";
@@ -1174,7 +1174,7 @@ QtObject {
     property string md_manage_accounts: "md_\uf02e";
     // property string md_manage_history: "md_\uebe7";
     // property string md_manage_search: "md_\uf02f";
-    // property string md_map: "md_\ue55b";
+    property string md_map: "md_\ue55b";
     // property string md_maps_home_work: "md_\uf030";
     // property string md_maps_ugc: "md_\uef58";
     // property string md_margin: "md_\ue9bb";
@@ -1527,7 +1527,7 @@ QtObject {
     // property string md_propane_tank: "md_\uec13";
     // property string md_psychology: "md_\uea4a";
     // property string md_psychology_alt: "md_\uf8ea";
-    // property string md_public: "md_\ue80b";
+    property string md_public: "md_\ue80b";
     // property string md_public_off: "md_\uf1ca";
     // property string md_publish: "md_\ue255";
     // property string md_published_with_changes: "md_\uf232";

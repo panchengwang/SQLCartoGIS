@@ -12,7 +12,9 @@ set(QML_IMPORT_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 
 # set(QT_QML_OUTPUT_DIRECTORY  ${CMAKE_BINARY_DIR}/bin)
 # message(STATUS "CMAKE_BINARY_DIR:" ${CMAKE_BINARY_DIR})
-find_package(Qt6 6.5 COMPONENTS Quick REQUIRED)
+find_package(Qt6 6.5 COMPONENTS  Core Gui Qml Quick WebView WebEngineQuick REQUIRED)
+
+
 
 list(APPEND SINGLETON_QML_FILES
     ScStyles.qml
@@ -57,6 +59,7 @@ list(APPEND QML_FILES
     ScCheckbox.qml
     ScLogPanel.qml
     ScConnector.qml
+    ScMapPanel.qml
 )
 
 list(APPEND SOURCES
@@ -92,11 +95,11 @@ qt_add_qml_module(ScControls
     ${HEADERS}
 
     RESOURCES
-
-
+        webmap/index.html
     # images/pcwang.png
     # fonts/MaterialSymbolsOutlined-Regular.ttf
     # fonts/NotoSansSC-Regular.ttf
+
 )
 
 set_target_properties(ScControls PROPERTIES
@@ -109,14 +112,27 @@ set_target_properties(ScControls PROPERTIES
 
 target_compile_definitions(ScControls
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(ScControls
-    PRIVATE Qt6::Quick)
+target_link_libraries(ScControls PRIVATE
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Qml
+    Qt6::Quick
+    Qt6::WebView
+    Qt6::WebEngineQuick
+)
 
 target_include_directories(ScControls PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_custom_command(TARGET ScControls POST_BUILD
+add_custom_command(TARGET ScControls PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/fonts
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/images
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/icons
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/webmap
+
+
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/fonts ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/fonts
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/images ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/images
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/icons ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/icons
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/webmap ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/webmap
     # COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ScControls> ${CMAKE_BINARY_DIR}/bin/cn/pc/controls/$<TARGET_FILE_NAME:ScControls>
 )

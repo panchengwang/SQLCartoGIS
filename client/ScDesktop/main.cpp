@@ -1,10 +1,17 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QtWebView>
+#include <QtWebEngineQuick>
+
 
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    QtWebEngineQuick::initialize();
+    QtWebView::initialize();
+
+    QGuiApplication app(argc,  argv);
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QGuiApplication::applicationDirPath());

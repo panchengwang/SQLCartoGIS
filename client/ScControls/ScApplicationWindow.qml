@@ -86,12 +86,14 @@ ApplicationWindow{
             SplitView.fillHeight: true
             orientation: Qt.Vertical
             ScTabView{
-                id: tabView
+                id: mainView
                 anchors.margins: 0
                 SplitView.fillWidth: true
                 SplitView.fillHeight: true
                 Component.onCompleted:{
-                    ScApplication.mainView = tabView
+                    ScApplication.mainView = mainView
+
+                    mainView.addQmlPanel("ScMapPanel.qml")
                 }
             }
 
@@ -104,6 +106,7 @@ ApplicationWindow{
                     if(!ScApplication.logPanel){
                         ScApplication.logPanel = bottomTabView.addQmlPanel("ScLogPanel.qml")
                     }
+
                 }
             }
         }
@@ -120,6 +123,11 @@ ApplicationWindow{
                     anchors.top: parent.top;
                     anchors.left: parent.left;
                     anchors.right: parent.right
+
+                    ScMapView{
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 400
+                    }
 
                     Rectangle{
                         Layout.fillWidth: true
