@@ -20,3 +20,13 @@ void ScMapControl::paint(QPainter* painter)
 ScMapControl::~ScMapControl()
 {
 }
+
+int ScMapControl::srid() const
+{
+    return _srid;
+}
+
+void ScMapControl::setSrid(int srid)
+{
+    _srid = srid;
+}

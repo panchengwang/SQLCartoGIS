@@ -1,24 +1,25 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import QtWebView
-import QtWebEngine
 import cn.pc.controls
 
 Rectangle {
 
-    WebEngineView{
-        id: webView
+    // WebEngineView{
+    //     id: webView
+    //     anchors.fill: parent
+    //     url: ScApplication.masterUrl + "/webmap/index.html"
+
+    //     // onContextMenuRequested:(request)=>{
+    //     //     if(request){
+    //     //         request.accepted = true
+    //     //     }
+    //     // }
+    // }
+
+    ScWebMapControl{
         anchors.fill: parent
-        url: ScApplication.masterUrl + "/webmap/index.html"
-
-        // onContextMenuRequested:(request)=>{
-        //     if(request){
-        //         request.accepted = true
-        //     }
-        // }
     }
-
 
     ScMapControl{
         anchors.fill: parent
@@ -73,7 +74,7 @@ Rectangle {
                         textAlignment: Text.AlignLeft
                         onClicked: {
                             menu.close()
-                            setBackgroundMap(modelData.type)
+                            // setBackgroundMap(modelData.type)
                         }
                     }
                 }
@@ -81,9 +82,9 @@ Rectangle {
         }
     }
 
-    function setBackgroundMap(type){
-         webView.runJavaScript("showBackgroundMap('" + type + "')",(ret)=>{
-            console.log("run javascript", ret)
-         });
-    }
+    // function setBackgroundMap(type){
+    //      webView.runJavaScript("showBackgroundMap('" + type + "')",(ret)=>{
+    //         console.log("run javascript", ret)
+    //      });
+    // }
 }

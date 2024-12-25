@@ -126,6 +126,7 @@ void ScAjax::onErrorOccurred(QNetworkReply::NetworkError)
 
 void ScAjax::onFinished(QNetworkReply *reply)
 {
+    QVariant contentMimeType = reply->header(QNetworkRequest::ContentTypeHeader);
 
     _running = false;
     emit runningChanged();
@@ -133,7 +134,6 @@ void ScAjax::onFinished(QNetworkReply *reply)
     switch (reply->error()) {
         case QNetworkReply::NoError:
         {
-            QJsonParseError parseError;
             QByteArray response = reply->readAll();
             emit finished(QString(response));
         }

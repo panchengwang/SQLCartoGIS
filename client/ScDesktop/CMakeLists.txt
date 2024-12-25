@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(QML_IMPORT_PATH "${CMAKE_CURRENT_SOURCE_DIR}" CACHE STRING "")
 
 # message(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
-find_package(Qt6 6.5 COMPONENTS  Core Gui Qml Quick WebView WebEngineQuick REQUIRED)
+find_package(Qt6 6.5 COMPONENTS  Core Gui Qml Quick REQUIRED)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -45,8 +45,6 @@ target_link_libraries(SQLCartoDesktop PRIVATE
     Qt6::Gui
     Qt6::Qml
     Qt6::Quick
-    Qt6::WebView
-    Qt6::WebEngineQuick
 )
 
 include(GNUInstallDirs)

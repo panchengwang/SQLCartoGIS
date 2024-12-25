@@ -12,8 +12,13 @@ set(QML_IMPORT_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 
 # set(QT_QML_OUTPUT_DIRECTORY  ${CMAKE_BINARY_DIR}/bin)
 # message(STATUS "CMAKE_BINARY_DIR:" ${CMAKE_BINARY_DIR})
-find_package(Qt6 6.5 COMPONENTS  Core Gui Qml Quick WebView WebEngineQuick REQUIRED)
-
+find_package(Qt6 6.5 COMPONENTS  Core Gui Qml Quick REQUIRED)
+find_package(GEOS REQUIRED)
+find_package(GDAL REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(PROJ REQUIRED proj)
+# pkg_check_modules(CAIRO REQUIRED cairo)
+# pkg_check_modules(JSON_C REQUIRED json-c)
 
 
 list(APPEND SINGLETON_QML_FILES
@@ -96,6 +101,7 @@ qt_add_qml_module(ScControls
 
     RESOURCES
         webmap/index.html
+        SOURCES ScWebMapControl.h ScWebMapControl.cpp
     # images/pcwang.png
     # fonts/MaterialSymbolsOutlined-Regular.ttf
     # fonts/NotoSansSC-Regular.ttf
@@ -117,11 +123,12 @@ target_link_libraries(ScControls PRIVATE
     Qt6::Gui
     Qt6::Qml
     Qt6::Quick
-    Qt6::WebView
-    Qt6::WebEngineQuick
+    GEOS::geos
+    GDAL::GDAL
+    ${PROJ_LIBRARIES}
 )
 
-target_include_directories(ScControls PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(ScControls PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${PROJ_INCLUDE_DIRS})
 
 add_custom_command(TARGET ScControls PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/fonts

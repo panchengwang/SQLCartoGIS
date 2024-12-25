@@ -10,7 +10,7 @@ function createBkMaps(keys) {
     backgroundMaps = {
         OSM: new ol.layer.Tile({
             label: "OpenStreetMap",
-            visible: false,
+            visible: true,
             source: new ol.source.XYZ({
                 url: "https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             })
@@ -101,3 +101,7 @@ function createBkMaps(keys) {
         })
     };
 }
+
+
+
+

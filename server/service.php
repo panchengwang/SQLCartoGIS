@@ -5,6 +5,7 @@ include_once("./dbconfig.php");
 
 // check 
 if (!isset($_REQUEST['request'])) {
+    header('Content-type: text/json');
     echo json_encode(array(
         "success" => false,
         "message" => "No request parameter"
@@ -48,5 +49,7 @@ $response = $row[0];
 pg_free_result($result);
 pg_close($dbconn);
 
+
 echo $response;
+
 
