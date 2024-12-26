@@ -4,19 +4,37 @@ project(ScControls VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(VCPKG_PATH "D:/vcpkg")
+set(CMAKE_TOOLCHAIN_FILE "${VCPKG_PATH}/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
+set(CMAKE_PREFIX_PATH "${VCPKG_PATH}/installed/x64-windows/share")
+
 # set(QML_IMPORT_PATH "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" CACHE STRING "")
 set(QML_IMPORT_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
     CACHE STRING "extra qml import paths"
     FORCE
 )
 
+message(STATUS "os is ${CMAKE_SYSTEM_NAME}")
+
+
 # set(QT_QML_OUTPUT_DIRECTORY  ${CMAKE_BINARY_DIR}/bin)
 # message(STATUS "CMAKE_BINARY_DIR:" ${CMAKE_BINARY_DIR})
 find_package(Qt6 6.5 COMPONENTS  Core Gui Qml Quick REQUIRED)
-find_package(GEOS REQUIRED)
-find_package(GDAL REQUIRED)
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(PROJ REQUIRED proj)
+find_package(GEOS CONFIG REQUIRED)
+find_package(GDAL CONFIG REQUIRED)
+
+set(TIFF_INCLUDE_DIR "${VCPKG_PATH}/installed/x64-windows/include")
+set(TIFF_LIBRARY "${VCPKG_PATH}/installed/x64-windows/lib/tiff.lib")
+find_package(TIFF REQUIRED)
+
+set(ZLIB_INCLUDE_DIR "${VCPKG_PATH}/installed/x64-windows/include")
+set(ZLIB_LIBRARY "${VCPKG_PATH}/installed/x64-windows/lib/zlib.lib")
+find_package(TIFF REQUIRED)
+find_package(PROJ CONFIG REQUIRED)
+
+# find_package(PkgConfig REQUIRED)
+# pkg_check_modules(PROJ REQUIRED proj)
 # pkg_check_modules(CAIRO REQUIRED cairo)
 # pkg_check_modules(JSON_C REQUIRED json-c)
 
@@ -74,6 +92,7 @@ list(APPEND SOURCES
     ScDirUtils.cpp
     ScFileUtils.cpp
     ScAjax.cpp
+    ScWebMapControl.cpp
 )
 
 list(APPEND HEADERS
@@ -83,6 +102,7 @@ list(APPEND HEADERS
     ScDirUtils.h
     ScFileUtils.h
     ScAjax.h
+    ScWebMapControl.h
 )
 
 # qt_add_library(ScControls SHARED)
@@ -100,8 +120,6 @@ qt_add_qml_module(ScControls
     ${HEADERS}
 
     RESOURCES
-        webmap/index.html
-        SOURCES ScWebMapControl.h ScWebMapControl.cpp
     # images/pcwang.png
     # fonts/MaterialSymbolsOutlined-Regular.ttf
     # fonts/NotoSansSC-Regular.ttf
@@ -125,12 +143,13 @@ target_link_libraries(ScControls PRIVATE
     Qt6::Quick
     GEOS::geos
     GDAL::GDAL
-    ${PROJ_LIBRARIES}
+    PROJ::proj
+    TIFF::TIFF
 )
 
-target_include_directories(ScControls PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${PROJ_INCLUDE_DIRS})
+target_include_directories(ScControls PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
 
-add_custom_command(TARGET ScControls PRE_BUILD
+add_custom_command(TARGET ScControls POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/fonts
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/images
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/icons
