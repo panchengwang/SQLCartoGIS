@@ -24,13 +24,6 @@
             });
             map = new ol.Map({
                 layers: [
-                    new ol.layer.Tile({
-                        label: "OpenStreetMap",
-                        visible: true,
-                        source: new ol.source.XYZ({
-                            url: "https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        })
-                    })
                 ],
                 view: new ol.View({
                     center: [0, 0],
@@ -40,9 +33,9 @@
             });
             // $(".ol-zoom").remove();
 
-            // for (const key in backgroundMaps) {
-            //     map.addLayer(backgroundMaps[key])
-            // }
+            for (const key in backgroundMaps) {
+                map.addLayer(backgroundMaps[key])
+            }
         });
 
         $(window).resize(() => {

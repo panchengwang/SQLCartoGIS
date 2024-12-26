@@ -10,7 +10,7 @@ function createBkMaps(keys) {
     backgroundMaps = {
         OSM: new ol.layer.Tile({
             label: "OpenStreetMap",
-            visible: true,
+            visible: false,
             source: new ol.source.XYZ({
                 url: "https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             })
@@ -45,7 +45,7 @@ function createBkMaps(keys) {
         }),
         GOOGLE_SATELLITE: new ol.layer.Tile({
             label: "谷歌影像",
-            visible: false,
+            visible: true,
             source: new ol.source.XYZ({
                 url: "https://mt{0-3}.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}"
             })
