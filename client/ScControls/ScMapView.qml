@@ -1,23 +1,18 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtWebEngine
+import QtWebView
 import cn.pc.controls
 
 Rectangle {
 
-    // WebEngineView{
-    //     id: webView
-    //     anchors.fill: parent
-    //     url: ScApplication.masterUrl + "/webmap/index.html"
 
-    //     // onContextMenuRequested:(request)=>{
-    //     //     if(request){
-    //     //         request.accepted = true
-    //     //     }
-    //     // }
-    // }
+
+
 
     ScWebMapControl{
+        id: bkWebMapControl
         anchors.fill: parent
     }
 
@@ -57,6 +52,7 @@ Rectangle {
                 // }
                 Repeater {
                     model: [
+                        {icon: "",text: "No Background Map",type: "BLANK"},
                         {icon: "",text: "Open Streets Map",type: "OSM"},
                         {icon: "",text: "Gaode Streets",type: "GAODE_ROADMAP"},
                         {icon: "",text: "Gaode Satellite",type: "GAODE_SATELLITE"},
@@ -74,7 +70,7 @@ Rectangle {
                         textAlignment: Text.AlignLeft
                         onClicked: {
                             menu.close()
-                            // setBackgroundMap(modelData.type)
+                            bkWebMapControl.setBackgroundMap(modelData.type)
                         }
                     }
                 }
@@ -82,9 +78,5 @@ Rectangle {
         }
     }
 
-    // function setBackgroundMap(type){
-    //      webView.runJavaScript("showBackgroundMap('" + type + "')",(ret)=>{
-    //         console.log("run javascript", ret)
-    //      });
-    // }
+
 }

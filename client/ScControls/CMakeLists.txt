@@ -20,19 +20,17 @@ message(STATUS "os is ${CMAKE_SYSTEM_NAME}")
 
 # set(QT_QML_OUTPUT_DIRECTORY  ${CMAKE_BINARY_DIR}/bin)
 # message(STATUS "CMAKE_BINARY_DIR:" ${CMAKE_BINARY_DIR})
-find_package(Qt6 6.5 COMPONENTS  Core Gui Qml Quick REQUIRED)
+find_package(Qt6 6.5 COMPONENTS  Core Gui Qml Quick WebView REQUIRED)
 find_package(GEOS CONFIG REQUIRED)
 find_package(GDAL CONFIG REQUIRED)
 
 set(TIFF_INCLUDE_DIR "${VCPKG_PATH}/installed/x64-windows/include")
 set(TIFF_LIBRARY "${VCPKG_PATH}/installed/x64-windows/lib/tiff.lib")
-find_package(TIFF REQUIRED)
-
+# find_package(TIFF REQUIRED)
 set(ZLIB_INCLUDE_DIR "${VCPKG_PATH}/installed/x64-windows/include")
 set(ZLIB_LIBRARY "${VCPKG_PATH}/installed/x64-windows/lib/zlib.lib")
-find_package(TIFF REQUIRED)
 find_package(PROJ CONFIG REQUIRED)
-
+# find_package(ZLIB REQUIRED)
 # find_package(PkgConfig REQUIRED)
 # pkg_check_modules(PROJ REQUIRED proj)
 # pkg_check_modules(CAIRO REQUIRED cairo)
@@ -92,7 +90,6 @@ list(APPEND SOURCES
     ScDirUtils.cpp
     ScFileUtils.cpp
     ScAjax.cpp
-    ScWebMapControl.cpp
 )
 
 list(APPEND HEADERS
@@ -102,7 +99,6 @@ list(APPEND HEADERS
     ScDirUtils.h
     ScFileUtils.h
     ScAjax.h
-    ScWebMapControl.h
 )
 
 # qt_add_library(ScControls SHARED)
@@ -120,6 +116,7 @@ qt_add_qml_module(ScControls
     ${HEADERS}
 
     RESOURCES
+    QML_FILES ScWebMapControl.qml
     # images/pcwang.png
     # fonts/MaterialSymbolsOutlined-Regular.ttf
     # fonts/NotoSansSC-Regular.ttf
@@ -144,7 +141,6 @@ target_link_libraries(ScControls PRIVATE
     GEOS::geos
     GDAL::GDAL
     PROJ::proj
-    TIFF::TIFF
 )
 
 target_include_directories(ScControls PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )

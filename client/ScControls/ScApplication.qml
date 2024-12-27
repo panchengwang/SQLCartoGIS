@@ -18,7 +18,9 @@ QtObject
 
     property bool hasLogin: token.trim() !== ''
 
-    // function hasLogin(){
-    //     return ScApplication.token.trim() !== ''
-    // }
+
+    property var gaode_api:{
+        "key": "d27242255dfd0152233a1023c4ea0ecb",
+        "password": "99be80ec0f86d6dec388057d0133f8e2"
+    }
 }

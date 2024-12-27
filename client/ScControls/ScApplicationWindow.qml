@@ -124,10 +124,10 @@ ApplicationWindow{
                     anchors.left: parent.left;
                     anchors.right: parent.right
 
-                    ScMapView{
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 400
-                    }
+                    // ScMapView{
+                    //     Layout.fillWidth: true
+                    //     Layout.preferredHeight: 400
+                    // }
 
                     Rectangle{
                         Layout.fillWidth: true
