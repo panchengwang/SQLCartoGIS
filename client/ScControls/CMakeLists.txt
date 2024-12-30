@@ -81,6 +81,8 @@ list(APPEND QML_FILES
     ScLogPanel.qml
     ScConnector.qml
     ScMapPanel.qml
+    ScWebMapControl.qml
+    ScWebMapSwitcher.qml
 )
 
 list(APPEND SOURCES
@@ -116,7 +118,7 @@ qt_add_qml_module(ScControls
     ${HEADERS}
 
     RESOURCES
-    QML_FILES ScWebMapControl.qml
+
     # images/pcwang.png
     # fonts/MaterialSymbolsOutlined-Regular.ttf
     # fonts/NotoSansSC-Regular.ttf

@@ -26,24 +26,24 @@ $dbconn = @pg_connect("host=" . HOST . " port=" . PORT . " dbname=" . DBNAME . "
 if (!$dbconn) {
     echo json_encode(array(
         "success" => false,
-        "message" => pg_last_error()
+        "message" => @pg_last_error()
     ));
     exit();
 }
 
 
-$result = pg_query_params($dbconn, "select sc_service_run($1)", array(
+$result = @pg_query_params($dbconn, "select sc_service_run($1)", array(
     $_REQUEST['request']
 ));
 
 if (!$result) {
     echo json_encode(array(
         "success" => false,
-        "message" => pg_last_error()
+        "message" => @pg_last_error()
     ));
     exit(0);
 }
-$row = pg_fetch_row($result);
+$row = @pg_fetch_row($result);
 $response = $row[0];
 
 pg_free_result($result);

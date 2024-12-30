@@ -42,25 +42,66 @@
     <script src="https://webapi.amap.com/loader.js"></script>
     <script type="text/javascript">
         var map = null;
+        var standardLayer = null;
+        var satelliteLayer = null;
+        var roadNetLayer = null;
+        var trafficLayer = null;
+        var labelsLayer = null;
+
         AMapLoader.load({
             key: apikey,
             version: "2.0",
         })
             .then((AMap) => {
+                standardLayer = new AMap.createDefaultLayer({
+                    visible: true
+                });
+                satelliteLayer = new AMap.TileLayer.Satellite({
+                    visible: false
+                });
+                trafficLayer = new AMap.TileLayer.Traffic({
+                    visible: false,
+                    autoRefresh: true,
+                    interval: 180,
+                });
+                roadNetLayer = new AMap.TileLayer.RoadNet({
+                    visible: false
+                });
+                // labelsLayer = new AMap.LabelsLayer({ visible: false });
+
                 map = new AMap.Map("map", {
                     viewMode: '2D',
+                    showLabel: true,
+                    layers: [standardLayer, satelliteLayer, roadNetLayer, trafficLayer],
                     zoom: z,
                     center: [x, y],
                 });
             })
             .catch((e) => {
-                console.error(e); //加载错误提示
+                console.error(e);
             });
 
         function setCenter(x, y) {
             if (map) {
                 map.setCenter(x, y);
             }
+        }
+
+        function hideAllLayer() {
+            standardLayer.hide();
+            satelliteLayer.hide();
+            roadNetLayer.hide();
+            trafficLayer.hide();
+        }
+
+        function getLayerByClassName(clsname) {
+            var layers = map.getLayers();
+            for (var i = 0; i < layers.length; i++) {
+                if (layers[i].CLASS_NAME === clsname) {
+                    return layers[i];
+                }
+            }
+            return null;
         }
     </script>
 </head>

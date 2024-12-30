@@ -44,6 +44,7 @@ ScTabPanel {
                     id: txtUsername
                     Layout.fillWidth: true
                     placeholderText: 'Username must be a valid email address: '
+                    text: "wang_wang_lao@163.com"
                 }
 
                 ScText{
@@ -55,6 +56,7 @@ ScTabPanel {
                     Layout.fillWidth: true
                     echoMode: TextField.Password
                     placeholderText: '8-16 characters, at least one uppercase letter, one lowercase letter, one number and one special character'
+                    text: "123qwe@@"
                 }
 
                 ScText{
@@ -66,6 +68,7 @@ ScTabPanel {
                     Layout.fillWidth: true
                     echoMode: TextField.Password
                     placeholderText: 'Same as password above '
+                    text: "123qwe@@"
                 }
 
                 ScText{
@@ -78,7 +81,6 @@ ScTabPanel {
                     ScTextField{
                         id: txtVerifyCode
                         Layout.fillWidth: true
-                        echoMode: TextField.Password
                     }
                     ScButton{
                         text: "Get verify code"
@@ -129,11 +131,31 @@ ScTabPanel {
                         if(connector.running){
                             return
                         }
+
+                        connector.success = (response)=>{
+                            ScApplication.notify.message = response.message
+                            ScApplication.notify.open()
+                        }
+                        connector.failure = (response)=>{
+                            ScApplication.notify.message = response.message
+                            ScApplication.notify.open()
+                            ScApplication.logPanel.appendLog(response.message)
+                        }
+                        var request = JSON.stringify({
+                                                                     "type": "USER_CREATE",
+                                                                     "data": {
+                                                                         "username": txtUsername.text.trim(),
+                                                                         "password": txtPassword.text.trim(),
+                                                                         "verify_code": txtVerifyCode.text.trim()
+                                                                     }
+                                                                 });
+                        connector.post({"request": request})
                     }
                 }
             }
         }
     }
+
     ScConnector{
         id: connector
     }

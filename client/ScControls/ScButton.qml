@@ -23,8 +23,9 @@ Button {
     property string focusBackgroundColor: ScColors.primary
     property string focusColor: ScColors.white
     property int textAlignment: Text.AlignHCenter
-
     property bool mouseOvered: mouseArea.containsMouse
+
+    property bool clickable: true
 
     signal rightIconClicked()
     signal leftIconClicked()
@@ -42,7 +43,7 @@ Button {
             Layout.preferredWidth: Layout.preferredHeight
             fontIcon: control.leftIcon
             radius: 0.5 * height
-            clickable: control.leftIconClickStandalone
+            clickable: control.clickable && control.leftIconClickStandalone
             onClicked: control.leftIconClicked()
             iconColor: control.isActivate ? control.focusColor : control.iconColor
         }
@@ -66,7 +67,7 @@ Button {
             Layout.preferredWidth: Layout.preferredHeight
             fontIcon: control.rightIcon
             radius: 0.5 * height
-            clickable: control.rightIconClickStandalone
+            clickable: control.clickable && control.rightIconClickStandalone
             onClicked: control.rightIconClicked()
             iconColor: control.isActivate ? control.focusColor : control.iconColor
         }
@@ -85,6 +86,7 @@ Button {
             anchors.fill: parent
             hoverEnabled: true
             cursorShape: flat ? Qt.PointingHandCursor : Qt.ArrowCursor
+            visible: control.clickable
         }
     }
 }
