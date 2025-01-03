@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body,
+        #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <script src="./ol.js"></script>
+    <script src="./jquery-3.7.1.js"></script>
+    <script src="./bkmap.js"></script>
+    <link rel="stylesheet" href="./ol.css">
+
+    <script>
+        var map = null;
+        var roadmapLayer = null;
+        var terrainLayer = null;
+        var satelliteLayer = null;
+        var x = 112.957273, y = 28.199262, z = 14, apikey = "";
+        function parseparams() {
+            try {
+                var keyvals = window.location.href.split("?")[1].split("&");
+                for (var i = 0; i < keyvals.length; i++) {
+                    var kv = keyvals[i].split("=");
+                    if (kv[0] === "x") {
+                        x = parseFloat(kv[1]);
+                    } else if (kv[0] === "y") {
+                        y = parseFloat(kv[1]);
+                    } else if (kv[0] === "z") {
+                        z = parseInt(kv[1]);
+                    } else if (kv[0] == "key") {
+                        apikey = kv[1];
+                    }
+                }
+            } catch (e) { }
+        }
+
+        function createLayers() {
+            roadmapLayer = new ol.layer.Tile({
+                label: "Bing路网",
+                visible: true,
+                source: new ol.source.BingMaps({
+                    key: apikey,
+                    imagerySet: "RoadOnDemand",
+                    culture: "zh-cn"
+                })
+            });
+            satelliteLayer = new ol.layer.Tile({
+                label: "Bing影像",
+                visible: false,
+                source: new ol.source.BingMaps({
+                    key: apikey,
+                    imagerySet: "Aerial"
+                })
+            })
+        }
+
+        $(document).ready(() => {
+            parseparams();
+            createLayers();
+            map = new ol.Map({
+                layers: [roadmapLayer, satelliteLayer],
+                view: new ol.View({
+                    center: ol.proj.transform([x, y], "EPSG:4326", "EPSG:3857"),
+                    zoom: z,
+                }),
+                target: 'map',
+            });
+            $(".ol-zoom").remove();
+        });
+
+        function hideAllLayer() {
+            roadmapLayer.setVisible(false);
+            satelliteLayer.setVisible(false);
+        }
+
+        function showLayer(type) {
+            hideAllLayer();
+            if (type === "ROADMAP") {
+                roadmapLayer.setVisible(true);
+            } else if (type === "SATELLITE") {
+                satelliteLayer.setVisible(true);
+            }
+        }
+
+        function hideLayer(type) {
+            if (type === "ROADMAP") {
+                roadmapLayer.setVisible(false);
+            } else if (type === "SATELLITE") {
+                satelliteLayer.setVisible(false);
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <div id="map"></div>
+</body>
+
+</html>
