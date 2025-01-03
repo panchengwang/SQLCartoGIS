@@ -24,6 +24,29 @@ WebView{
                                          + `&y=${webView.centerY}`
                                          + `&z=${webView.zoom}`;
                                      });
+        }else if(type === "GOOGLE"){
+            webView.url = Qt.binding(()=>{
+                                         return `http://127.0.0.1/sqlcarto/webmap/google.html?`
+                                         + `&x=${webView.centerX}`
+                                         + `&y=${webView.centerY}`
+                                         + `&z=${webView.zoom}`;
+                                     });
+        }else if(type === "BING"){
+            webView.url = Qt.binding(()=>{
+                                         return `http://127.0.0.1/sqlcarto/webmap/bing.html?`
+                                         + `key=${ScApplication.bing_api.key}`
+                                         + `&x=${webView.centerX}`
+                                         + `&y=${webView.centerY}`
+                                         + `&z=${webView.zoom}`;
+                                     });
+        }else if(type === "TIANDITU"){
+            webView.url = Qt.binding(()=>{
+                                         return `http://127.0.0.1/sqlcarto/webmap/tianditu.html?`
+                                         + `key=${ScApplication.tianditu_api.key}`
+                                         + `&x=${webView.centerX}`
+                                         + `&y=${webView.centerY}`
+                                         + `&z=${webView.zoom}`;
+                                     });
         }else{
             webView.url = Qt.binding(()=>{
                                          return "http://127.0.0.1/sqlcarto/webmap/blank.html"

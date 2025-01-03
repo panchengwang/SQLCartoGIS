@@ -135,11 +135,13 @@ ScTabPanel {
                         connector.success = (response)=>{
                             ScApplication.notify.message = response.message
                             ScApplication.notify.open()
+                            panel.closed()
                         }
                         connector.failure = (response)=>{
                             ScApplication.notify.message = response.message
                             ScApplication.notify.open()
                             ScApplication.logPanel.appendLog(response.message)
+
                         }
                         var request = JSON.stringify({
                                                                      "type": "USER_CREATE",
@@ -149,6 +151,7 @@ ScTabPanel {
                                                                          "verify_code": txtVerifyCode.text.trim()
                                                                      }
                                                                  });
+                        console.log(request);
                         connector.post({"request": request})
                     }
                 }

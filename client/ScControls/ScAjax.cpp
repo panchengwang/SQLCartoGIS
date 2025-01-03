@@ -46,7 +46,7 @@ void ScAjax::post(const QString& url, const QJsonObject& keyvals, const QStringL
         QString fname = keys[i];
         QString fvalue = keyvals.value(keys[i]).toString();
         textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QString("form-data; name=\"%1\"").arg(fname));
-        textPart.setBody(fvalue.toLocal8Bit());
+        textPart.setBody(QByteArray::fromStdString(fvalue.toStdString()));  // don't use string , bytearray needed!
         multiPart->append(textPart);
     }
 

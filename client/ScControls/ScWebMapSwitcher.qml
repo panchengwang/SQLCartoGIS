@@ -143,6 +143,10 @@ ScButton {
                             menu.close()
                             control.currentMap = modelData.type;
                             control.text = modelData.text
+                            if(currentMap === modelData.type){
+                                return;
+                            }
+
                             if(modelData.type === "GAODE"){
                                 chkGaodeStandard.checked = true;
                                 chkGaodeLabel.checked = true;
@@ -169,8 +173,9 @@ ScButton {
         background: Rectangle{
             color: ScColors.grey_4
             opacity: 0.8
-            border.color: ScColors.grey_8
+            border.color: ScColors.grey_6
             border.width: 1
+            radius: ScStyles.radius
         }
         padding: 0
         ColumnLayout{
@@ -179,8 +184,8 @@ ScButton {
                 id: chkGaodeLabel
                 text: "Label & POI"
                 Layout.fillWidth: true
+                checked: true
                 onCheckedChanged:{
-                    // webMapControl.setGaodeLayerVisible("LABEL",checked)
                     if(checked){
                         webMapControl.runJavaScript(`
                                                     getLayerByClassName("AMap.Inner.LabelsLayer").show()
@@ -196,6 +201,7 @@ ScButton {
                 id: chkGaodeStandard
                 text: "Standard"
                 Layout.fillWidth: true
+                checked: true
                 onCheckedChanged:{
                     if(checked){
                         webMapControl.runJavaScript(`
@@ -276,6 +282,264 @@ ScButton {
             }
         }
     }
+
+    ScPopup{
+        id: googleControls
+
+        x: (parent.width - width)*0.5
+        y: parent.height + 5
+        visible: control.currentMap === "GOOGLE"
+        height:  googleColumn.height + topPadding + bottomPadding
+        width:  googleColumn.width + leftPadding + rightPadding
+        closePolicy: Popup.NoAutoClose
+        background: Rectangle{
+            color: ScColors.grey_4
+            opacity: 0.8
+            border.color: ScColors.grey_6
+            border.width: 1
+            radius: ScStyles.radius
+        }
+        padding: 0
+        ColumnLayout{
+            id: googleColumn
+
+            ScCheckbox{
+                id: chkGoogleRoadMap
+                text: "Road Map"
+                Layout.fillWidth: true
+                checked: true
+                onCheckedChanged:{
+
+                    if(checked){
+                        chkGoogleTerrain.checked = false;
+                        chkGoogleSatellite.checked = false;
+                        control.webMapControl.runJavaScript(`
+                                                            showLayer("ROADMAP")
+                                                            `)
+                    }else{
+                        control.webMapControl.runJavaScript(`
+                                                            hideLayer("ROADMAP")
+                                                            `)
+                    }
+                }
+            }
+            ScCheckbox{
+                id: chkGoogleSatellite
+                text: "Satellite"
+                Layout.fillWidth: true
+                onCheckedChanged:{
+
+                    if(checked){
+                        chkGoogleTerrain.checked = false;
+                        chkGoogleRoadMap.checked = false;
+                        control.webMapControl.runJavaScript(`
+                                                            showLayer("SATELLITE")
+                                                            `)
+                    }else{
+                        control.webMapControl.runJavaScript(`
+                                                            hideLayer("SATELLITE")
+                                                            `)
+                    }
+                }
+            }
+
+            ScCheckbox{
+                id: chkGoogleTerrain
+                text: "Terrain"
+                Layout.fillWidth: true
+                onCheckedChanged:{
+                    if(checked){
+                        chkGoogleSatellite.checked = false;
+                        chkGoogleRoadMap.checked = false;
+                        control.webMapControl.runJavaScript(`
+                                                            showLayer("TERRAIN")
+                                                            `)
+
+                    }else{
+                        control.webMapControl.runJavaScript(`
+                                                            hideLayer("TERRAIN")
+                                                            `)
+                    }
+                }
+            }
+
+
+        }
+    }
+
+
+
+    ScPopup{
+        id: bingControls
+
+        x: (parent.width - width)*0.5
+        y: parent.height + 5
+        visible: control.currentMap === "BING"
+        height:  bingColumn.height + topPadding + bottomPadding
+        width:  bingColumn.width + leftPadding + rightPadding
+        closePolicy: Popup.NoAutoClose
+        background: Rectangle{
+            color: ScColors.grey_4
+            opacity: 0.8
+            border.color: ScColors.grey_6
+            border.width: 1
+            radius: ScStyles.radius
+        }
+        padding: 0
+        ColumnLayout{
+            id: bingColumn
+
+            ScCheckbox{
+                id: chkBingRoadMap
+                text: "Road Map"
+                Layout.fillWidth: true
+                checked: true
+                onCheckedChanged:{
+
+                    if(checked){
+                        chkBingSatellite.checked = false;
+                        control.webMapControl.runJavaScript(`
+                                                            showLayer("ROADMAP")
+                                                            `)
+                    }else{
+                        control.webMapControl.runJavaScript(`
+                                                            hideLayer("ROADMAP")
+                                                            `)
+                    }
+                }
+            }
+            ScCheckbox{
+                id: chkBingSatellite
+                text: "Satellite"
+                Layout.fillWidth: true
+                onCheckedChanged:{
+                    if(checked){
+                        chkBingRoadMap.checked = false;
+                        control.webMapControl.runJavaScript(`
+                                                            showLayer("SATELLITE")
+                                                            `)
+                    }else{
+                        control.webMapControl.runJavaScript(`
+                                                            hideLayer("SATELLITE")
+                                                            `)
+                    }
+                }
+            }
+
+        }
+
+        onVisibleChanged:{
+            if(visible){
+                chkBingRoadMap.checked = true;
+            }
+        }
+    }
+
+    ScPopup{
+        id: tiandituControls
+
+        x: (parent.width - width)*0.5
+        y: parent.height + 5
+        visible: control.currentMap === "TIANDITU"
+        height:  tiandituColumn.height + topPadding + bottomPadding
+        width:  tiandituColumn.width + leftPadding + rightPadding
+        closePolicy: Popup.NoAutoClose
+        background: Rectangle{
+            color: ScColors.grey_4
+            opacity: 0.8
+            border.color: ScColors.grey_6
+            border.width: 1
+            radius: ScStyles.radius
+        }
+        padding: 0
+        GridLayout{
+            id: tiandituColumn
+            columns: 2
+            ScCheckbox{
+                id: chkTiandituRoadMap
+                text: "Road Map"
+                Layout.fillWidth: true
+                checked: true
+                onCheckedChanged:{
+                    if(checked){
+                        chkTiandituRoadMapLabel.checked = true
+                        chkTiandituSatellite.checked = false
+                        control.webMapControl.runJavaScript(`
+                                                            map.addLayer(roadmapLayer);
+                                                            map.addLayer(roadmapLabelLayer);
+                                                            `)
+                    }else{
+                        chkTiandituRoadMapLabel.checked = false
+                        control.webMapControl.runJavaScript(`
+                                                            map.removeLayer(roadmapLayer);
+                                                            map.removeLayer(roadmapLabelLayer);
+                                                            `)
+                    }
+                }
+            }
+            ScCheckbox{
+                id: chkTiandituRoadMapLabel
+                text: "Label"
+                Layout.fillWidth: true
+                checked: true
+                enabled: chkTiandituRoadMap.checked
+                onCheckedChanged:{
+                    if(checked){
+                        control.webMapControl.runJavaScript(`
+                                                            map.addLayer(roadmapLabelLayer);
+                                                            `)
+                    }else{
+                        control.webMapControl.runJavaScript(`
+                                                            map.removeLayer(roadmapLabelLayer);
+                                                            `)
+                    }
+                }
+            }
+            ScCheckbox{
+                id: chkTiandituSatellite
+                text: "Satellite"
+                Layout.fillWidth: true
+                onCheckedChanged:{
+
+                    if(checked){
+                        chkTiandituSatelliteLabel.checked = false
+                        chkTiandituRoadMap.checked = false
+                        control.webMapControl.runJavaScript(`
+                                                            map.addLayer(satelliteLayer);
+                                                            `)
+                    }else{
+                        chkTiandituSatelliteLabel.checked = false
+                        control.webMapControl.runJavaScript(`
+                                                            map.removeLayer(satelliteLayer);
+                                                            map.removeLayer(satelliteLabelLayer);
+                                                            `)
+                    }
+                }
+            }
+
+            ScCheckbox{
+                id: chkTiandituSatelliteLabel
+                text: "Label"
+                Layout.fillWidth: true
+                checked: false
+                enabled: chkTiandituSatellite.checked
+                onCheckedChanged:{
+                    if(checked){
+                        control.webMapControl.runJavaScript(`
+                                                            map.addLayer(satelliteLabelLayer);
+                                                            `)
+                    }else{
+                        control.webMapControl.runJavaScript(`
+                                                            map.removeLayer(satelliteLabelLayer);
+                                                            `)
+                    }
+                }
+            }
+
+
+        }
+    }
+
 }
 // }
 
