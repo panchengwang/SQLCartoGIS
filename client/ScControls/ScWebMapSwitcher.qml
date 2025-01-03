@@ -367,8 +367,6 @@ ScButton {
         }
     }
 
-
-
     ScPopup{
         id: bingControls
 
