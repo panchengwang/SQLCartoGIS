@@ -27,6 +27,7 @@ WebView{
         }else if(type === "GOOGLE"){
             webView.url = Qt.binding(()=>{
                                          return `http://127.0.0.1/sqlcarto/webmap/google.html?`
+                                         + `key=${ScApplication.google_api.key}`
                                          + `&x=${webView.centerX}`
                                          + `&y=${webView.centerY}`
                                          + `&z=${webView.zoom}`;

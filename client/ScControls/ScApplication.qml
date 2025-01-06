@@ -20,7 +20,8 @@ QtObject
 
 
     property var gaode_api:{
-        "key": "d27242255dfd0152233a1023c4ea0ecb",
+        // "key": "d27242255dfd0152233a1023c4ea0ecb",
+        "key": "",
         "password": "99be80ec0f86d6dec388057d0133f8e2"
     }
 
@@ -30,5 +31,9 @@ QtObject
 
     property var tianditu_api:{
         "key": "2e1e0958d50f81774142f573f690f97d"
+    }
+
+    property var google_api:{
+        "key": "AIzaSyDG8e7oxBemSJCZMH_0kXUxXrsV8Us0ak8"
     }
 }

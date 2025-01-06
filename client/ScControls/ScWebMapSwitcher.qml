@@ -126,6 +126,24 @@ ScButton {
                 RowLayout{
                     Layout.fillWidth: true
                     spacing: 0
+                    visible: {
+                        var show = false;
+                        if(modelData.type === "GAODE" && ScApplication.gaode_api.key.trim() !== ""){
+                            console.log(modelData.type)
+                            show = true
+                        }else if(modelData.type === "BING" && ScApplication.bing_api.key.trim() !== ""){
+                            show = true
+                        }else if(modelData.type === "GOOGLE" && ScApplication.google_api.key.trim() !== ""){
+                            show = true
+                        }else if(modelData.type === "TIANDITU" && ScApplication.tianditu_api.key.trim() !== ""){
+                            show = true
+                        }else{
+                            show = true
+                        }
+
+                        show;
+                    }
+
                     ScAvatar{
                         image: modelData.icon
                         border.width: 0
@@ -147,13 +165,13 @@ ScButton {
                                 return;
                             }
 
-                            if(modelData.type === "GAODE"){
-                                chkGaodeStandard.checked = true;
-                                chkGaodeLabel.checked = true;
-                                chkGaodeTraffic.checked = false;
-                                chkGaodeRoadNet.checked = false;
-                                chkGaodeSatellite.checked = false;
-                            }
+                            // if(modelData.type === "GAODE"){
+                            //     chkGaodeStandard.checked = true;
+                            //     chkGaodeLabel.checked = true;
+                            //     chkGaodeTraffic.checked = false;
+                            //     chkGaodeRoadNet.checked = false;
+                            //     chkGaodeSatellite.checked = false;
+                            // }
                         }
                     }
                 }
@@ -203,24 +221,28 @@ ScButton {
                 Layout.fillWidth: true
                 checked: true
                 onCheckedChanged:{
+                    chkGaodeLabel.checked = checked;
+
                     if(checked){
+                        chkGaodeSatellite.checked = false;
                         webMapControl.runJavaScript(`
                                                     standardLayer.show();
                                                     `)
-                        if(!chkGaodeLabel.checked){
-                            webMapControl.runJavaScript(`
-                                                        getLayerByClassName("AMap.Inner.LabelsLayer").hide()
-                                                        `)
-                        }
+
+                        // if(!chkGaodeLabel.checked){
+                        //     webMapControl.runJavaScript(`
+                        //                                 getLayerByClassName("AMap.Inner.LabelsLayer").hide()
+                        //                                 `)
+                        // }
                     }else{
                         webMapControl.runJavaScript(`
                                                     standardLayer.hide();
                                                     `)
-                        if(chkGaodeLabel.checked){
-                            webMapControl.runJavaScript(`
-                                                        getLayerByClassName("AMap.Inner.LabelsLayer").show()
-                                                        `)
-                        }
+                        // if(chkGaodeLabel.checked){
+                        //     webMapControl.runJavaScript(`
+                        //                                 getLayerByClassName("AMap.Inner.LabelsLayer").show()
+                        //                                 `)
+                        // }
                     }
                 }
             }
@@ -229,7 +251,9 @@ ScButton {
                 text: "Satellite"
                 Layout.fillWidth: true
                 onCheckedChanged:{
+
                     if(checked){
+                        chkGaodeStandard.checked = false;
                         webMapControl.runJavaScript(`
                                                     satelliteLayer.show();
                                                     `)
