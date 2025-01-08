@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
+#include <QtCore>
+#include <QtGui>
 
 
 

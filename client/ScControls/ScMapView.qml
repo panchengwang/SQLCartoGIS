@@ -16,7 +16,11 @@ Rectangle {
     }
 
     ScMapControl{
+        id: mapControl
         anchors.fill: parent
+        Component.onCompleted:{
+            timer.start();
+        }
     }
 
 
@@ -32,5 +36,13 @@ Rectangle {
 
     }
 
+    Timer{
+        id: timer
+        interval: 1000
+        repeat: false
+        onTriggered:{
+            mapControl.setInitialMapExtent(-180,-90,180,90);
+        }
+    }
 
 }

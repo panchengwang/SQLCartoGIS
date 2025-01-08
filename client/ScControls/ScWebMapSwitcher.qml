@@ -129,15 +129,15 @@ ScButton {
                     visible: {
                         var show = false;
                         if(modelData.type === "GAODE" && ScApplication.gaode_api.key.trim() !== ""){
-                            console.log(modelData.type)
                             show = true
                         }else if(modelData.type === "BING" && ScApplication.bing_api.key.trim() !== ""){
                             show = true
+                            console.log("bing", show)
                         }else if(modelData.type === "GOOGLE" && ScApplication.google_api.key.trim() !== ""){
                             show = true
                         }else if(modelData.type === "TIANDITU" && ScApplication.tianditu_api.key.trim() !== ""){
                             show = true
-                        }else{
+                        }else if(["BLANK","OSM"].indexOf(modelData.type) >=0){
                             show = true
                         }
 
@@ -160,18 +160,22 @@ ScButton {
                         onClicked: {
                             menu.close()
                             control.currentMap = modelData.type;
+                            control.webMapControl.visible = true;
                             control.text = modelData.text
                             if(currentMap === modelData.type){
                                 return;
                             }
 
-                            // if(modelData.type === "GAODE"){
-                            //     chkGaodeStandard.checked = true;
-                            //     chkGaodeLabel.checked = true;
-                            //     chkGaodeTraffic.checked = false;
-                            //     chkGaodeRoadNet.checked = false;
-                            //     chkGaodeSatellite.checked = false;
-                            // }
+                            if(modelData.type === "GAODE"){
+                                chkGaodeStandard.checked = true;
+                                chkGaodeLabel.checked = true;
+                                chkGaodeTraffic.checked = false;
+                                chkGaodeRoadNet.checked = false;
+                                chkGaodeSatellite.checked = false;
+                            }else if(modelData.type === "GOOGLE"){
+                                chkGoogleRoadMap.checked = true;
+
+                            }
                         }
                     }
                 }
@@ -204,12 +208,13 @@ ScButton {
                 Layout.fillWidth: true
                 checked: true
                 onCheckedChanged:{
+                    control.webMapControl.visible = true;
                     if(checked){
-                        webMapControl.runJavaScript(`
+                        control.webMapControl.runJavaScript(`
                                                     getLayerByClassName("AMap.Inner.LabelsLayer").show()
                                                     `)
                     }else{
-                        webMapControl.runJavaScript(`
+                        control.webMapControl.runJavaScript(`
                                                     getLayerByClassName("AMap.Inner.LabelsLayer").hide()
                                                     `)
                     }
@@ -221,11 +226,11 @@ ScButton {
                 Layout.fillWidth: true
                 checked: true
                 onCheckedChanged:{
+                    control.webMapControl.visible = true;
                     chkGaodeLabel.checked = checked;
-
                     if(checked){
                         chkGaodeSatellite.checked = false;
-                        webMapControl.runJavaScript(`
+                        control.webMapControl.runJavaScript(`
                                                     standardLayer.show();
                                                     `)
 
@@ -235,7 +240,7 @@ ScButton {
                         //                                 `)
                         // }
                     }else{
-                        webMapControl.runJavaScript(`
+                        control.webMapControl.runJavaScript(`
                                                     standardLayer.hide();
                                                     `)
                         // if(chkGaodeLabel.checked){
@@ -251,14 +256,14 @@ ScButton {
                 text: "Satellite"
                 Layout.fillWidth: true
                 onCheckedChanged:{
-
+control.webMapControl.visible = true;
                     if(checked){
                         chkGaodeStandard.checked = false;
-                        webMapControl.runJavaScript(`
+                        control.webMapControl.runJavaScript(`
                                                     satelliteLayer.show();
                                                     `)
                     }else{
-                        webMapControl.runJavaScript(`
+                        control.webMapControl.runJavaScript(`
                                                     satelliteLayer.hide();
                                                     `)
                     }
@@ -270,13 +275,14 @@ ScButton {
                 text: "Traffic"
                 Layout.fillWidth: true
                 onCheckedChanged:{
+                control.webMapControl.visible = true;
                     if(checked){
-                        webMapControl.runJavaScript(`
+                        control.webMapControl.runJavaScript(`
                                                     trafficLayer.show();
                                                     `)
 
                     }else{
-                        webMapControl.runJavaScript(`
+                        control.webMapControl.runJavaScript(`
                                                     trafficLayer.hide();
                                                     `)
                     }
@@ -288,17 +294,18 @@ ScButton {
                 text: "Road Net"
                 Layout.fillWidth: true
                 onCheckedChanged:{
+                control.webMapControl.visible = true;
                     if(checked){
-                        webMapControl.runJavaScript(`
+                        control.webMapControl.runJavaScript(`
                                                     roadNetLayer.show();
                                                     `)
                         if(!chkGaodeLabel.checked){
-                            webMapControl.runJavaScript(`
+                            control.webMapControl.runJavaScript(`
                                                         getLayerByClassName("AMap.Inner.LabelsLayer").hide()
                                                         `)
                         }
                     }else{
-                        webMapControl.runJavaScript(`
+                        control.webMapControl.runJavaScript(`
                                                     roadNetLayer.hide();
                                                     `)
                     }
@@ -333,7 +340,7 @@ ScButton {
                 Layout.fillWidth: true
                 checked: true
                 onCheckedChanged:{
-
+                    control.webMapControl.visible = true;
                     if(checked){
                         chkGoogleTerrain.checked = false;
                         chkGoogleSatellite.checked = false;
@@ -344,6 +351,9 @@ ScButton {
                         control.webMapControl.runJavaScript(`
                                                             hideLayer("ROADMAP")
                                                             `)
+                        if(!chkGoogleRoadMap.checked && !chkGoogleSatellite.checked && !chkGoogleHybrid.checked && !chkGoogleTerrain.checked){
+                            control.webMapControl.visible = false;
+                        }
                     }
                 }
             }
@@ -352,7 +362,7 @@ ScButton {
                 text: "Satellite"
                 Layout.fillWidth: true
                 onCheckedChanged:{
-
+                    control.webMapControl.visible = true;
                     if(checked){
                         chkGoogleTerrain.checked = false;
                         chkGoogleRoadMap.checked = false;
@@ -363,6 +373,33 @@ ScButton {
                         control.webMapControl.runJavaScript(`
                                                             hideLayer("SATELLITE")
                                                             `)
+                        if(!chkGoogleRoadMap.checked && !chkGoogleSatellite.checked && !chkGoogleHybrid.checked && !chkGoogleTerrain.checked){
+                            control.webMapControl.visible = false;
+                        }
+                    }
+                }
+            }
+
+            ScCheckbox{
+                id: chkGoogleHybrid
+                text: "Hybrid"
+                Layout.fillWidth: true
+                onCheckedChanged:{
+                    control.webMapControl.visible = true;
+                    if(checked){
+                        chkGoogleSatellite.checked = false;
+                        chkGoogleRoadMap.checked = false;
+                        control.webMapControl.runJavaScript(`
+                                                            showLayer("HYBRID")
+                                                            `)
+
+                    }else{
+                        control.webMapControl.runJavaScript(`
+                                                            hideLayer("HYBRID")
+                                                            `)
+                        if(!chkGoogleRoadMap.checked && !chkGoogleSatellite.checked && !chkGoogleHybrid.checked && !chkGoogleTerrain.checked){
+                            control.webMapControl.visible = false;
+                        }
                     }
                 }
             }
@@ -372,6 +409,7 @@ ScButton {
                 text: "Terrain"
                 Layout.fillWidth: true
                 onCheckedChanged:{
+                    control.webMapControl.visible = true;
                     if(checked){
                         chkGoogleSatellite.checked = false;
                         chkGoogleRoadMap.checked = false;
@@ -383,6 +421,9 @@ ScButton {
                         control.webMapControl.runJavaScript(`
                                                             hideLayer("TERRAIN")
                                                             `)
+                        if(!chkGoogleRoadMap.checked && !chkGoogleSatellite.checked && !chkGoogleHybrid.checked && !chkGoogleTerrain.checked){
+                            control.webMapControl.visible = false;
+                        }
                     }
                 }
             }
@@ -417,7 +458,7 @@ ScButton {
                 Layout.fillWidth: true
                 checked: true
                 onCheckedChanged:{
-
+control.webMapControl.visible = true;
                     if(checked){
                         chkBingSatellite.checked = false;
                         control.webMapControl.runJavaScript(`
@@ -435,6 +476,7 @@ ScButton {
                 text: "Satellite"
                 Layout.fillWidth: true
                 onCheckedChanged:{
+                control.webMapControl.visible = true;
                     if(checked){
                         chkBingRoadMap.checked = false;
                         control.webMapControl.runJavaScript(`
@@ -483,6 +525,7 @@ ScButton {
                 Layout.fillWidth: true
                 checked: true
                 onCheckedChanged:{
+                control.webMapControl.visible = true;
                     if(checked){
                         chkTiandituRoadMapLabel.checked = true
                         chkTiandituSatellite.checked = false
@@ -506,6 +549,7 @@ ScButton {
                 checked: true
                 enabled: chkTiandituRoadMap.checked
                 onCheckedChanged:{
+                control.webMapControl.visible = true;
                     if(checked){
                         control.webMapControl.runJavaScript(`
                                                             map.addLayer(roadmapLabelLayer);
@@ -522,7 +566,7 @@ ScButton {
                 text: "Satellite"
                 Layout.fillWidth: true
                 onCheckedChanged:{
-
+control.webMapControl.visible = true;
                     if(checked){
                         chkTiandituSatelliteLabel.checked = false
                         chkTiandituRoadMap.checked = false
@@ -546,6 +590,7 @@ ScButton {
                 checked: false
                 enabled: chkTiandituSatellite.checked
                 onCheckedChanged:{
+                control.webMapControl.visible = true;
                     if(checked){
                         control.webMapControl.runJavaScript(`
                                                             map.addLayer(satelliteLabelLayer);

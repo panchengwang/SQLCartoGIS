@@ -92,6 +92,7 @@ list(APPEND SOURCES
     ScDirUtils.cpp
     ScFileUtils.cpp
     ScAjax.cpp
+    ScAffine.cpp
 )
 
 list(APPEND HEADERS
@@ -101,6 +102,7 @@ list(APPEND HEADERS
     ScDirUtils.h
     ScFileUtils.h
     ScAjax.h
+    ScAffine.h
 )
 
 # qt_add_library(ScControls SHARED)

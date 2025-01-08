@@ -60,7 +60,11 @@
                 center: { lat: y, lng: x },
                 zoom: z,
             });
+            removeControls();
+        }
 
+
+        function removeControls() {
             var count = 0;
             var timer = setInterval(() => {
                 $(".gm-fullscreen-control").remove();
@@ -71,9 +75,8 @@
                     clearInterval(timer);
                 }
             }, 1000);
-
-
         }
+
         function createLayers() {
             (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
                 key: apikey,
@@ -82,7 +85,7 @@
 
             initMap();
 
-            // $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDG8e7oxBemSJCZMH_0kXUxXrsV8Us0ak8&libraries=places", () => {
+            // $.getScript("https://maps.googleapis.com/maps/api/js?key=&libraries=places", () => {
             //     initMap();
             // });
             // roadmapLayer = new ol.layer.Tile({
@@ -135,30 +138,34 @@
         });
 
         function hideAllLayer() {
-            roadmapLayer.setVisible(false);
-            satelliteLayer.setVisible(false);
-            terrainLayer.setVisible(false);
+            // roadmapLayer.setVisible(false);
+            // satelliteLayer.setVisible(false);
+            // terrainLayer.setVisible(false);
         }
 
         function showLayer(type) {
             hideAllLayer();
             if (type === "ROADMAP") {
-                roadmapLayer.setVisible(true);
+                map.setMapTypeId('roadmap');
             } else if (type === "SATELLITE") {
-                satelliteLayer.setVisible(true);
+                map.setMapTypeId('satellite');
             } else if (type === "TERRAIN") {
-                terrainLayer.setVisible(true);
+                map.setMapTypeId('terrain');
+            } else if (type === "HYBRID") {
+                map.setMapTypeId('hybrid');
             }
+
+            removeControls();
         }
 
         function hideLayer(type) {
-            if (type === "ROADMAP") {
-                roadmapLayer.setVisible(false);
-            } else if (type === "SATELLITE") {
-                satelliteLayer.setVisible(false);
-            } else if (type === "TERRAIN") {
-                terrainLayer.setVisible(false);
-            }
+            // if (type === "ROADMAP") {
+            //     roadmapLayer.setVisible(false);
+            // } else if (type === "SATELLITE") {
+            //     satelliteLayer.setVisible(false);
+            // } else if (type === "TERRAIN") {
+            //     terrainLayer.setVisible(false);
+            // }
         }
 
     </script>
