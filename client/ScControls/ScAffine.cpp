@@ -1,188 +1,153 @@
 #include "ScAffine.h"
 #include <math.h>
+#include <string.h>
+#include <stdlib.h>
 
 ScAffine::ScAffine(QObject *parent)
     : QObject{parent}
 {
-reset();
+    reset();
 }
 
-// void ScAffine::setParameters(double a, double b, double d, double e, double xoff, double yoff)
-// {
-//     _a = a;
-//     _b = b;
-//     _c = 0;
-//     _d = d;
-//     _e = e;
-//     _f = 0;
-//     _g = 0;
-//     _h = 0;
-//     _i = 0;
-//     _xoff = xoff;
-//     _yoff = yoff;
-//     _zoff = 0;
-// }
-
-// void ScAffine::setParameters(double a, double b, double c, double d, double e, double f, double g, double h, double i, double xoff, double yoff, double zoff)
-// {
-//     _a = a;
-//     _b = b;
-//     _c = c;
-//     _d = d;
-//     _e = e;
-//     _f = f;
-//     _g = g;
-//     _h = h;
-//     _i = i;
-//     _xoff = xoff;
-//     _yoff = yoff;
-//     _zoff = zoff;
-// }
-
-// void ScAffine::setParameters(OGREnvelope& fromEv, OGREnvelope& toEv)
-// {
-//     double sx =fabs( (toEv.MaxX - toEv.MinX) / (fromEv.MaxX - fromEv.MinX));
-//     double sy = fabs((toEv.MaxY - toEv.MinY) / (fromEv.MaxY - fromEv.MinY));
-//     double scale = sx < sy ? sx : sy;
-//     double xoff = (toEv.MinX + toEv.MaxX)*0.5 - (fromEv.MinX + fromEv.MaxX)*0.5;
-//     double yoff = (toEv.MinY + toEv.MaxY)*0.5 - (fromEv.MinY + fromEv.MaxY)*0.5;
-//     reset();
-
-//     this->scale(scale,scale);
-//       this->translate(xoff,yoff);
-// }
-
-// OGRPoint* ScAffine::transform(OGRPoint* pt)
-// {
-//     double x = _a * pt->getX() + _b * pt->getY() + _c * pt->getZ() + _xoff;
-//     double y = _d * pt->getX() + _e * pt->getY() + _f * pt->getZ() + _yoff;
-//     double z = _g * pt->getY() + _h * pt->getY() + _i * pt->getZ() + _zoff;
-//     pt->setX(x);
-//     pt->setY(y);
-//     pt->setZ(z);
-//     return pt;
-// }
-
-// OGRPoint ScAffine::transform(const OGRPoint& pt)
-// {
-//     qDebug() << "a: " << _a << ", b: " << _b << ", d: " << _d << ", e: " << _e << ", xoff: " << _xoff << ", yoff: " << _yoff;
-//     double x = _a * pt.getX() + _b * pt.getY() + _c * pt.getZ() + _xoff;
-//     double y = _d * pt.getX() + _e * pt.getY() + _f * pt.getZ() + _yoff;
-//     double z = _g * pt.getY() + _h * pt.getY() + _i * pt.getZ() + _zoff;
-//     return OGRPoint(x,y,z);
-// }
-
-// void ScAffine::translate(double xoff, double yoff, double zoff)
-// {
-//     _xoff = xoff;
-//     _yoff = yoff;
-//     _zoff = zoff;
-// }
-
-// void ScAffine::scale(double scaleX, double scaleY, double scaleZ)
-// {
-//     _a *= scaleX;
-//     _b *= scaleY;
-//     _c *= scaleZ;
-//     _xoff *= scaleX;
-//     _d *= scaleX;
-//     _e *= scaleY;
-//     _f *= scaleZ;
-//     _yoff *= scaleY;
-//     _g *= scaleX;
-//     _h *= scaleY;
-//     _i *= scaleZ;
-//     _zoff *= scaleZ;
-// }
-
-// void ScAffine::rotate(double angle)
-// {
-//     double a,b,d,e;
-//     a = cos(angle)  ;
-//     b = -sin(angle)  ;
-//     d = sin(angle)  ;
-//     e = cos(angle) ;
-//     _a = a;
-//     _b = b;
-//     _d = d;
-//     _e = e;
-// }
-
-// #define EQ(v1,v2)   fabs((v1)-(v2)) < 0.000000001
-
-// void ScAffine::rotateDegree(double degree)
-// {
-//     double a,b,d,e;
-//     double rad = degree / 180.0 * M_PI;
-//     double sina,cosa;
-//     if (EQ(degree,90.0) || EQ(degree,-270.0)){
-//         sina = 1.;
-//         cosa = 0.0;
-//     }else if (EQ(degree,270) || EQ(degree , -90.)){
-//         sina = -1.;
-//         cosa = 0.0;
-//     }else if (EQ(degree,180.)){
-//         cosa = -1.;
-//         sina = 0.0;
-//     }else{
-//         sina = sin(rad);
-//         cosa = cos(rad);
-//     }
-
-//     a = _a*cosa + _b * sina;
-//     b = _e*cosa + _d * sina;
-//     d = -_a*sina + _b * cosa;
-//     e = -_e*sina + _d * cosa;
-
-//     _a  = a;
-//     _b = b;
-//     _d = d;
-//     _e = e;
-// }
-
-
-void ScAffine::setParameters(OGREnvelope& fromEv, OGREnvelope& toEv){
-
+ScAffine::ScAffine(const ScAffine& affine)
+{
+    _parameters = affine._parameters;
 }
 
-OGRPoint* ScAffine::transform(OGRPoint* pt){
-    if(_parameters.empty()){
-        return pt;
-    }
-
-}
-
-OGRPoint ScAffine::transform(const OGRPoint& pt){
-
-}
-
-void ScAffine::translate(double xoff, double yoff, double zoff){
-    AffineParameters param ={
-        1,0,0,0,1,0,0,0,1,xoff,yoff,zoff
-    };
+void ScAffine::setParameters(double a, double b, double d, double e, double xoff, double yoff)
+{
+    reset();
+    _parameters.clear();
+    ScAffineParameter param(a,b,d,e,xoff,yoff);
     _parameters.push_back(param);
 }
 
-void ScAffine::scale (double scaleX, double scaleY, double scaleZ ){
-    AffineParameters param ={
-        scaleX,0,0,0,scaleY,0,0,0,scaleZ,0,0,0
-    };
+
+void ScAffine::setParameters(OGREnvelope& fromEv, OGREnvelope& toEv){
+    double sx = (toEv.MaxX - toEv.MinX) / (fromEv.MaxX - fromEv.MinX);
+    double sy = (toEv.MaxY - toEv.MinY) / (fromEv.MaxY - fromEv.MinY);
+    double scale = fabs(sx) < fabs(sy) ? fabs(sx) : fabs(sy);
+    int xsign = sx > 0 ? 1 : -1;
+    int ysign = sy > 0 ? 1 : -1;
+    double xoff = (toEv.MinX + toEv.MaxX)*0.5 - (fromEv.MinX + fromEv.MaxX)*0.5*scale * xsign;
+    double yoff = (toEv.MinY + toEv.MaxY)*0.5 - (fromEv.MinY + fromEv.MaxY)*0.5*scale * ysign;
+    reset();
+    this->scale(xsign*scale,ysign* scale);
+    this->translate(xoff,yoff);
+}
+
+
+OGRPoint* ScAffine::transform(OGRPoint* pt){
+    double x = pt->getX();
+    double y = pt->getY();
+    for(size_t i=0; i<_parameters.size(); i++){
+        ScAffineParameter &param = _parameters.at(i);
+        qDebug() << param.toString();
+        double x1 = param._a * x + param._b * y + param._xoff;
+        double y1 = param._d * x + param._e * y + param._yoff;
+        x = x1;
+        y = y1;
+    }
+
+    pt->setX(x);
+    pt->setY(y);
+    return pt;
+}
+
+OGRPoint ScAffine::transform(const OGRPoint& pt){
+    double x = pt.getX();
+    double y = pt.getY();
+    for(size_t i=0; i<_parameters.size(); i++){
+        ScAffineParameter &param = _parameters.at(i);
+        double x1 = param._a * x + param._b * y + param._xoff;
+        double y1 = param._d * x + param._e * y + param._yoff;
+        x = x1;
+        y = y1;
+    }
+
+    OGRPoint ret;
+    ret.setX(x);
+    ret.setY(y);
+    return ret;
+}
+
+void ScAffine::translate(double xoff, double yoff){
+    ScAffineParameter param;
+    param._type = ScAffineParameter::OperatorType::TRANSLATE;
+    param._xoff = xoff;
+    param._yoff = yoff;
+    _parameters.push_back(param);
+}
+
+void ScAffine::scale (double scaleX, double scaleY ){
+    ScAffineParameter param;
+    param._type = ScAffineParameter::OperatorType::SCALE;
+    param._a = scaleX;
+    param._e = scaleY;
     _parameters.push_back(param);
 }
 
 void ScAffine::rotate(double angle){
+    qreal sina = 0;
+    qreal cosa = 0;
 
+    sina = sin(angle);               // fast and convenient
+    cosa = cos(angle);
+
+    ScAffineParameter param(cosa,sina,-sina,cosa,0,0);
+    param._type = ScAffineParameter::OperatorType::ROTATE;
+    _parameters.push_back(param);
 }
 
 void ScAffine::rotateDegree(double degree){
+    qreal sina = 0;
+    qreal cosa = 0;
+    if (degree == 90. || degree == -270.)
+        sina = 1.;
+    else if (degree == 270. || degree == -90.)
+        sina = -1.;
+    else if (degree == 180.)
+        cosa = -1.;
+    else{
+        double rad = degree/180.0*M_PI;
+        sina = sin(rad);               // fast and convenient
+        cosa = cos(rad);
+    }
 
+    ScAffineParameter param(cosa,sina,-sina,cosa,0,0);
+    param._type = ScAffineParameter::OperatorType::ROTATE;
+    _parameters.push_back(param);
 }
 
 void ScAffine::reset()
 {
     _parameters.clear();
-    // AffineParameters param ={
-    //     1,0,0,0,1,0,0,0,1,0,0,0
-    // };
-    // _parameters.push_back(param);
+
+    ScAffineParameter param;
+    _parameters.push_back(param);
 }
+
+ScAffine ScAffine::inverted()
+{
+    ScAffine invAffine;
+    for(size_t i=_parameters.size()-1; i>=1; i--){
+        ScAffineParameter param = _parameters.at(i);
+        if(param._type == ScAffineParameter::OperatorType::TRANSLATE){
+            param._xoff = -param._xoff;
+            param._yoff = -param._yoff;
+        }else if(param._type == ScAffineParameter::OperatorType::SCALE){
+            param._a = 1.0 / param._a;
+            param._e = 1.0 / param._e;
+        }else if(param._type == ScAffineParameter::OperatorType::ROTATE){
+            param._a = param._a;
+            param._b = -param._b;
+            param._d = -param._d;
+            param._e = param._e;
+        }
+        invAffine._parameters.push_back(param);
+        // qDebug() << param.toString();
+    }
+    return invAffine;
+}
+
+

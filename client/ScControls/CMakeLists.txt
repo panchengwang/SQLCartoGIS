@@ -120,6 +120,8 @@ qt_add_qml_module(ScControls
     ${HEADERS}
 
     RESOURCES
+    SOURCES ScAffineParameter.h ScAffineParameter.cpp
+    SOURCES ScOGRPoint.h ScOGRPoint.cpp
 
     # images/pcwang.png
     # fonts/MaterialSymbolsOutlined-Regular.ttf

@@ -4,6 +4,8 @@
 #include <QtQuick/QQuickPaintedItem>
 #include <ogr_api.h>
 #include <ogr_geometry.h>
+#include <ScAffine.h>
+#include "ScOGRPoint.h"
 
 class ScMapControl : public QQuickPaintedItem
 {
@@ -15,30 +17,34 @@ class ScMapControl : public QQuickPaintedItem
 
 public:
     explicit ScMapControl(QQuickItem* parent = nullptr);
-    void paint(QPainter* painter) override;
     ~ScMapControl() override;
 
+    void paint(QPainter* painter) override;
+
+    void drawGrid(QPainter* painter, double xstep, double ystep);
 
     int srid() const;
     void setSrid(int srid);
 
-    void setInitialMapExtent(const OGREnvelope& ev);
-    Q_INVOKABLE void setInitialMapExtent(double minx, double miny, double maxx, double maxy);
+    // void setInitialMapExtent(const OGREnvelope& ev);
+    // Q_INVOKABLE void setInitialMapExtent(double minx, double miny, double maxx, double maxy);
 protected:
     void mouseMoveEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);
     void geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry);
 
+protected slots:
+    void onSizeChanged();
+
 signals:
     void sridChanged();
-
+    // void mapClicked(const ScOGRPoint& pixel, const ScOGRPoint& coord);
+    void mapClicked(const QJsonObject& pixel, const QJsonObject& coord);
 protected:
     int  _srid;
-
-    QTransform _transform;
-    // OGRPoint    _center;
-    // double  _scale;
+    OGREnvelope _envelope;
+    ScAffine _affine;
 
 };
 
