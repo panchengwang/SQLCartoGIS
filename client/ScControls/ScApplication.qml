@@ -1,5 +1,6 @@
 pragma Singleton
 import QtQuick
+import QtCore
 
 QtObject
 {
@@ -20,20 +21,54 @@ QtObject
 
 
     property var gaode_api:{
-        // "key": "d27242255dfd0152233a1023c4ea0ecb",
         "key": "",
-        "password": "99be80ec0f86d6dec388057d0133f8e2"
+        "password": ""
     }
 
     property var bing_api: {
-        "key": "Aq6fXDMn4ZhWgOlk3IWUKC1EJnflPHuC1IRK38FDjuUSlQEOsm9DAKuLSZEaxIoQ"
+        "key": ""
     }
 
     property var tianditu_api:{
-        "key": "2e1e0958d50f81774142f573f690f97d"
+        "key": ""
     }
 
     property var google_api:{
-        "key": "AIzaSyDG8e7oxBemSJCZMH_0kXUxXrsV8Us0ak8"
+        "key": ""
+    }
+
+
+
+    property ScFileUtils fileUtils: ScFileUtils{}
+
+    function loadConfiguration(){
+        let configfilename = (StandardPaths.writableLocation(StandardPaths.AppConfigLocation)+"/scconfig.json").replace("file:///","");
+        console.log(configfilename);
+        var config;
+        if(!fileUtils.exist(configfilename)){
+            config = {
+                "gaode_api":{
+                    "key": "",
+                    "password": ""
+                },
+                "bing_api":{
+                    "key": ""
+                },
+                "tianditu_api":{
+                    "key": ""
+                },
+                "google_api":{
+                    "key": ""
+                }
+            }
+
+            fileUtils.write(configfilename,JSON.stringify(config));
+        }
+
+        config = JSON.parse(fileUtils.read(configfilename));
+        ScApplication.gaode_api = config.gaode_api
+        ScApplication.bing_api = config.bing_api
+        ScApplication.tianditu_api = config.tianditu_api
+        ScApplication.google_api = config.google_api
     }
 }

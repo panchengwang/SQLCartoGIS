@@ -8,13 +8,14 @@ ScApplicationWindow {
     height: 768
     visible: true
 
-    // ScMapControl{
-    //     anchors.fill: parent
+    // // ScMapControl{
+    // //     anchors.fill: parent
+    // // }
+
+    // ScImage{
+
     // }
 
-    ScImage{
-
-    }
 
 
 }

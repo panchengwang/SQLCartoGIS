@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import cn.pc.controls
+import QtCore
 
 ApplicationWindow{
     id: appWin
@@ -195,9 +196,15 @@ ApplicationWindow{
 
 
 
+
     Component.onCompleted: {
         center()
         ScApplication.appWin = appWin
 
+        // StandardPaths.writableLocation(StandardPaths.AppLocalDataLocation)
+        // StandardPaths.writableLocation(StandardPaths.AppConfigLocation)
+        //read configurations
+
+        ScApplication.loadConfiguration();
     }
 }
