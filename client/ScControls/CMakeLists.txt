@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(VCPKG_PATH "D:/vcpkg")
 set(CMAKE_TOOLCHAIN_FILE "${VCPKG_PATH}/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
 set(CMAKE_PREFIX_PATH "${VCPKG_PATH}/installed/x64-windows/share")
+set(PKG_CONFIG_EXECUTABLE "${VCPKG_PATH}/installed/x64-windows/tools/pkgconf/pkgconf.exe")
+set(ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}:${VCPKG_PATH}/installed/x64-windows/lib/pkgconfig")
 
 # set(QML_IMPORT_PATH "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" CACHE STRING "")
 set(QML_IMPORT_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
@@ -30,10 +32,11 @@ set(TIFF_LIBRARY "${VCPKG_PATH}/installed/x64-windows/lib/tiff.lib")
 set(ZLIB_INCLUDE_DIR "${VCPKG_PATH}/installed/x64-windows/include")
 set(ZLIB_LIBRARY "${VCPKG_PATH}/installed/x64-windows/lib/zlib.lib")
 find_package(PROJ CONFIG REQUIRED)
+# find_package(cairo CONFIG REQUIRED)
 # find_package(ZLIB REQUIRED)
-# find_package(PkgConfig REQUIRED)
+find_package(PkgConfig REQUIRED)
 # pkg_check_modules(PROJ REQUIRED proj)
-# pkg_check_modules(CAIRO REQUIRED cairo)
+pkg_check_modules(CAIRO REQUIRED cairo)
 # pkg_check_modules(JSON_C REQUIRED json-c)
 
 
@@ -122,6 +125,9 @@ qt_add_qml_module(ScControls
     RESOURCES
     SOURCES ScAffineParameter.h ScAffineParameter.cpp
     SOURCES ScOGRPoint.h ScOGRPoint.cpp
+    QML_FILES ScStatusBar.qml
+    # SOURCES ScAffine_copy.cpp
+    # SOURCES ScAffine_copy.h
 
     # images/pcwang.png
     # fonts/MaterialSymbolsOutlined-Regular.ttf
@@ -147,9 +153,10 @@ target_link_libraries(ScControls PRIVATE
     GEOS::geos
     GDAL::GDAL
     PROJ::proj
+    ${CAIRO_LINK_LIBRARIES}
 )
 
-target_include_directories(ScControls PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
+target_include_directories(ScControls PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CAIRO_INCLUDE_DIRS})
 
 add_custom_command(TARGET ScControls POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cn/pc/controls/fonts

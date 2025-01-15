@@ -20,16 +20,12 @@ Rectangle {
         anchors.fill: parent
         Component.onCompleted:{
             // timer.start();
+            console.log("map: ", mapControl.width)
         }
         onMapClicked:(pixel,coord)=>{
             // let pt1 = (ScOGRPoint)pixel;
             console.log(coord.x,coord.y);
         }
-
-        // ScOGRPoint{
-        //     x: 1
-        //     y: 1
-        // }
     }
 
 

@@ -4,6 +4,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import cn.pc.controls
 import QtCore
+import QtQuick.Window
 
 ApplicationWindow{
     id: appWin
@@ -40,6 +41,11 @@ ApplicationWindow{
         }
     }
 
+
+    footer: ScStatusBar{
+
+    }
+
     SplitView{
         anchors.fill: parent
         // visible: false
@@ -48,24 +54,24 @@ ApplicationWindow{
             id: catalog
             SplitView.fillHeight: true
             SplitView.preferredWidth: 300
-            ScButton{
-                Layout.fillWidth: true
-                text: 'create table panel'
-                onClicked:{
-                    var panel= ScApplication.mainView.addQmlPanel("ScTabPanel.qml")
-                    var num = Math.random();
-                    panel.title = 'Panel ' + num;
-                    panel.closeable = true; // num > 0.5
-                    // var component = Qt.createComponent("ScTabPanel.qml");
-                    // if (component.status == Component.Ready) {
-                    //     var panel = component.createObject();
-                    //     var num = Math.random();
-                    //     panel.title = 'Panel ' + num;
-                    //     panel.closeable = true; // num > 0.5
-                    //     tabView.add(panel)
-                    // }
-                }
-            }
+            // ScButton{
+            //     Layout.fillWidth: true
+            //     text: 'create table panel'
+            //     onClicked:{
+            //         var panel= ScApplication.mainView.addQmlPanel("ScTabPanel.qml")
+            //         var num = Math.random();
+            //         panel.title = 'Panel ' + num;
+            //         panel.closeable = true; // num > 0.5
+            //         // var component = Qt.createComponent("ScTabPanel.qml");
+            //         // if (component.status == Component.Ready) {
+            //         //     var panel = component.createObject();
+            //         //     var num = Math.random();
+            //         //     panel.title = 'Panel ' + num;
+            //         //     panel.closeable = true; // num > 0.5
+            //         //     tabView.add(panel)
+            //         // }
+            //     }
+            // }
 
             Component.onCompleted:{
                 ScApplication.catalog = catalog;
@@ -206,5 +212,7 @@ ApplicationWindow{
         //read configurations
 
         ScApplication.loadConfiguration();
+        console.log("devicePixelRatio",appWin.screen.devicePixelRatio);
+        console.log("pixelDensity",appWin.screen.pixelDensity);
     }
 }

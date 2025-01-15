@@ -5,8 +5,7 @@
 #include <QQmlEngine>
 #include <ogr_geometry.h>
 #include "ScAffineParameter.h"
-#include <QString>
-#include <cairo.h>
+#include <string>
 
 class ScAffine : public QObject
 {
@@ -32,7 +31,7 @@ public:
 
     ScAffine& operator=(const ScAffine& other);
 protected:
-    cairo_matrix_t  _matrix;
+    std::vector<ScAffineParameter> _parameters;
 signals:
 
 };
