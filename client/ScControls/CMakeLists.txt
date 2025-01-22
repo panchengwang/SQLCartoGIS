@@ -23,6 +23,7 @@ message(STATUS "os is ${CMAKE_SYSTEM_NAME}")
 # set(QT_QML_OUTPUT_DIRECTORY  ${CMAKE_BINARY_DIR}/bin)
 # message(STATUS "CMAKE_BINARY_DIR:" ${CMAKE_BINARY_DIR})
 find_package(Qt6 6.5 COMPONENTS  Core Gui Qml Quick WebView REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Sql)
 find_package(GEOS CONFIG REQUIRED)
 find_package(GDAL CONFIG REQUIRED)
 
@@ -86,6 +87,7 @@ list(APPEND QML_FILES
     ScMapPanel.qml
     ScWebMapControl.qml
     ScWebMapSwitcher.qml
+    ScStatusBar.qml
 )
 
 list(APPEND SOURCES
@@ -96,6 +98,9 @@ list(APPEND SOURCES
     ScFileUtils.cpp
     ScAjax.cpp
     ScAffine.cpp
+    ScProjection.cpp
+    ScOGRPoint.cpp
+    ScAffineParameter.cpp
 )
 
 list(APPEND HEADERS
@@ -106,6 +111,9 @@ list(APPEND HEADERS
     ScFileUtils.h
     ScAjax.h
     ScAffine.h
+    ScProjection.h
+    ScOGRPoint.h
+    ScAffineParameter.h
 )
 
 # qt_add_library(ScControls SHARED)
@@ -123,9 +131,10 @@ qt_add_qml_module(ScControls
     ${HEADERS}
 
     RESOURCES
-    SOURCES ScAffineParameter.h ScAffineParameter.cpp
-    SOURCES ScOGRPoint.h ScOGRPoint.cpp
-    QML_FILES ScStatusBar.qml
+    SOURCES ScSpatialDatabase.h ScSpatialDatabase.cpp
+    SOURCES ScGeometryIO.h ScGeometryIO.cpp
+
+
     # SOURCES ScAffine_copy.cpp
     # SOURCES ScAffine_copy.h
 
@@ -150,6 +159,7 @@ target_link_libraries(ScControls PRIVATE
     Qt6::Gui
     Qt6::Qml
     Qt6::Quick
+    Qt6::Sql
     GEOS::geos
     GDAL::GDAL
     PROJ::proj

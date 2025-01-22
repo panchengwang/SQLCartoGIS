@@ -5,7 +5,7 @@
 #include <ogr_api.h>
 #include <ogr_geometry.h>
 #include <ScAffine.h>
-
+#include <ScSpatialDatabase.h>
 
 class ScMapControl : public QQuickPaintedItem
 {
@@ -88,6 +88,8 @@ protected:
     bool _enableWebMap;
     int _minZoomLevel = 3;
     int _maxZoomLevel = 20;
+
+    ScSpatialDatabase   _sdb;
 private:
     void recalculateMapExtent();
     void clearDrafts();

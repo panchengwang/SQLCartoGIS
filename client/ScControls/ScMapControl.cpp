@@ -7,6 +7,7 @@
 #include <QtCore>
 #include <QQuickWindow>
 #include <QScreen>
+#include "ScGeometryIO.h"
 
 ScMapControl::ScMapControl(QQuickItem* parent)
     : QQuickPaintedItem(parent)
@@ -246,21 +247,32 @@ void ScMapControl::setEnableWebMap(bool enableWebMap)
 int ScMapControl::getNearestZoomLevel()
 {
     OGRPoint pt = pixelToMap(QPointF(width()*0.5+1,height()*0.5));      // 中心点右偏1个像素点的地理位置
-    double xoff ;
+    if(!_sdb.isValid()){
+        qDebug() << _sdb.errorMessage();
+        return 3;
+    }
 
-    OGRSpatialReference source, target;
-    pt = OGRPoint(28,112);
-    source.importFromEPSG(_srid);
-    target.importFromEPSG(3857);
-    OGRCoordinateTransformation *coordTrans = OGRCreateCoordinateTransformation(&source, &target);
-    qDebug() << pt.getX() << pt.getY();
-    pt.transform(coordTrans);
-    qDebug() << pt.getX() << pt.getY();
-    OGRPoint cpt=_center;
-    cpt.transform(coordTrans);
+    OGRGeometry* geo =_sdb.reproject(&pt,4326,3857);
+    ScGeometryIO geoIO;
+    qDebug() << geoIO.toWKT(geo);
+    OGRGeometryFactory::destroyGeometry(geo);
+    // double xoff ;
+    // qDebug() << "经纬度: " << pt.getX() << pt.getY();
+    // qDebug() << "中心点: " << _center.getX() << _center.getY();
+    // OGRSpatialReference source, target;
+    // pt = OGRPoint(pt.getY(),pt.getX());
+    // source.importFromEPSG(_srid);
+    // target.importFromEPSG(3857);
+    // OGRCoordinateTransformation *coordTrans = OGRCreateCoordinateTransformation(&source, &target);
 
-    xoff = pt.getX() - cpt.getX();
-    qDebug() << xoff;
+    // pt.transform(coordTrans);
+
+    // OGRPoint cpt(_center.getY(),_center.getX());
+    // cpt.transform(coordTrans);
+    // qDebug() << "变换后: " << pt.getX() << pt.getY();
+    // qDebug() << "变换后: " << cpt.getX() << cpt.getY();
+    // xoff = pt.getX() - cpt.getX();
+    // qDebug() << xoff;
     return 0;
 }
 
