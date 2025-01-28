@@ -9,6 +9,7 @@
 #include <QScreen>
 #include "ScGeometryIO.h"
 
+
 ScMapControl::ScMapControl(QQuickItem* parent)
     : QQuickPaintedItem(parent)
 {
@@ -22,17 +23,21 @@ ScMapControl::ScMapControl(QQuickItem* parent)
     setAcceptedMouseButtons(Qt::AllButtons);
 
     _srid = 4326;
-    _envelope.MinX = -180;
-    _envelope.MaxX = 180;
-    _envelope.MinY = -90;
-    _envelope.MaxY = 90;
+    // _envelope.MinX = -180;
+    // _envelope.MaxX = 180;
+    // _envelope.MinY = -90;
+    // _envelope.MaxY = 90;
+    _envelope.MinX = 110;
+    _envelope.MaxX = 112;
+    _envelope.MinY = 28;
+    _envelope.MaxY = 30;
     _isMapExtentOK = false;
 
 
 
     _isDraging = false;
     _dragBegin = _dragEnd = QPointF(0,0);
-    _currentDrawType = DrawType::LINESTRING;
+    _currentDrawType = DrawType::NOTHING;
     _isDrawing = false;
     _draftImage = NULL;
 
@@ -246,33 +251,17 @@ void ScMapControl::setEnableWebMap(bool enableWebMap)
 
 int ScMapControl::getNearestZoomLevel()
 {
+
     OGRPoint pt = pixelToMap(QPointF(width()*0.5+1,height()*0.5));      // 中心点右偏1个像素点的地理位置
     if(!_sdb.isValid()){
         qDebug() << _sdb.errorMessage();
         return 3;
     }
 
-    OGRGeometry* geo =_sdb.reproject(&pt,4326,3857);
-    ScGeometryIO geoIO;
-    qDebug() << geoIO.toWKT(geo);
-    OGRGeometryFactory::destroyGeometry(geo);
-    // double xoff ;
-    // qDebug() << "经纬度: " << pt.getX() << pt.getY();
-    // qDebug() << "中心点: " << _center.getX() << _center.getY();
-    // OGRSpatialReference source, target;
-    // pt = OGRPoint(pt.getY(),pt.getX());
-    // source.importFromEPSG(_srid);
-    // target.importFromEPSG(3857);
-    // OGRCoordinateTransformation *coordTrans = OGRCreateCoordinateTransformation(&source, &target);
-
-    // pt.transform(coordTrans);
-
-    // OGRPoint cpt(_center.getY(),_center.getX());
-    // cpt.transform(coordTrans);
-    // qDebug() << "变换后: " << pt.getX() << pt.getY();
-    // qDebug() << "变换后: " << cpt.getX() << cpt.getY();
-    // xoff = pt.getX() - cpt.getX();
-    // qDebug() << xoff;
+    ScGeometryIO io;
+    OGRPoint* center3857 =(OGRPoint*)_sdb.reproject(&_center,_srid,3857);
+    OGRPoint* pt3857 =(OGRPoint*)_sdb.reproject(&pt,_srid,3857);
+    qDebug() << "resolution: " << pt3857->getX() - center3857->getX();
     return 0;
 }
 

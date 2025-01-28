@@ -60,21 +60,25 @@ bool ScSpatialDatabase::execute(const QString& sql, const QVariantList& params)
 OGRGeometry* ScSpatialDatabase::reproject(OGRGeometry* geo, int sourceSrid, int targetSrid)
 {
     QString wkb=_geometryIO.toWKB(geo);
-    qDebug() << wkb;
-    QString sql = QString("select st_astext(st_transform(st_setsrid('%1'::geometry,%2),%3))")
+
+    QString sql = QString("select st_transform(st_setsrid('%1'::geometry,%2),%3)")
         .arg(wkb)
         .arg(sourceSrid)
         .arg(targetSrid);
     QVariantList params;
 
     if(!execute(sql,params)){
-        qDebug() << _errorMessage;
         return NULL;
     }
 
     while(_query.next()){
-        QString wkb = _query.record().value(0).toString();
-        OGRGeometry* mygeo = _geometryIO.fromWKB(wkb);
+        QString wkbstr = _query.record().value(0).toString();
+
+        OGRGeometry* mygeo = _geometryIO.fromWKB(wkbstr);
+        if(!mygeo){
+            _errorMessage = "Invalid: " + wkbstr;
+            return NULL;
+        }
         return mygeo;
     }
     return NULL;
