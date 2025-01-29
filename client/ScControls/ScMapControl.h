@@ -84,7 +84,7 @@ protected:
 
 
     // for web map service
-    std::vector<double> _resolutions;
+    std::vector<double> _webResolutions;
     bool _enableWebMap;
     int _minZoomLevel = 3;
     int _maxZoomLevel = 20;

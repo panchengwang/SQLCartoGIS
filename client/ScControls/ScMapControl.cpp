@@ -44,37 +44,35 @@ ScMapControl::ScMapControl(QQuickItem* parent)
 
 
 
-    _resolutions.push_back(  156543.03392804097);
-    _resolutions.push_back(   78271.51696402048);
-    _resolutions.push_back(   39135.75848201024);
-    _resolutions.push_back(  19567.879241005125);
-    _resolutions.push_back(    9783.93962050257);
-    _resolutions.push_back(  4891.9698102512775);
-    _resolutions.push_back(   2445.984905125646);
-    _resolutions.push_back(  1222.9924525628157);
-    _resolutions.push_back(   611.4962262814079);
-    _resolutions.push_back(   305.7481131407112);
-    _resolutions.push_back(  152.87405657034833);
-    _resolutions.push_back(   76.43702828517416);
-    _resolutions.push_back(   38.21851414258708);
-    _resolutions.push_back(  19.109257071308093);
-    _resolutions.push_back(   9.554628535654047);
-    _resolutions.push_back(   4.777314267834299);
-    _resolutions.push_back(  2.3886571339098737);
-    _resolutions.push_back(  1.1943285669549368);
-    _resolutions.push_back(  0.5971642834774684);
-    _resolutions.push_back(  0.2985821417387342);
-    _resolutions.push_back( 0.14929107087664306);
-    _resolutions.push_back( 0.07464553543832153);
-    _resolutions.push_back(0.037322767719160765);
-    _resolutions.push_back(0.018661383859580383);
+    _webResolutions.push_back(  156543.03392804097);
+    _webResolutions.push_back(   78271.51696402048);
+    _webResolutions.push_back(   39135.75848201024);
+    _webResolutions.push_back(  19567.879241005125);
+    _webResolutions.push_back(    9783.93962050257);
+    _webResolutions.push_back(  4891.9698102512775);
+    _webResolutions.push_back(   2445.984905125646);
+    _webResolutions.push_back(  1222.9924525628157);
+    _webResolutions.push_back(   611.4962262814079);
+    _webResolutions.push_back(   305.7481131407112);
+    _webResolutions.push_back(  152.87405657034833);
+    _webResolutions.push_back(   76.43702828517416);
+    _webResolutions.push_back(   38.21851414258708);
+    _webResolutions.push_back(  19.109257071308093);
+    _webResolutions.push_back(   9.554628535654047);
+    _webResolutions.push_back(   4.777314267834299);
+    _webResolutions.push_back(  2.3886571339098737);
+    _webResolutions.push_back(  1.1943285669549368);
+    _webResolutions.push_back(  0.5971642834774684);
+    _webResolutions.push_back(  0.2985821417387342);
+    _webResolutions.push_back( 0.14929107087664306);
+    _webResolutions.push_back( 0.07464553543832153);
+    _webResolutions.push_back(0.037322767719160765);
+    _webResolutions.push_back(0.018661383859580383);
     _enableWebMap = false;
 }
 
 void ScMapControl::paint(QPainter* painter)
 {
-
-
     double xoff = 0;
     double yoff = 0;
     if(_isDraging){

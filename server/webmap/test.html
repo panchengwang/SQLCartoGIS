@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>带可调整大小栏的三列布局</title>
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #0056b3;
+            /* 蓝色 */
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            /* 确保内容超出时可滚动 */
+        }
+
+        .left {
+            background-color: #e0f7ff;
+            /* 浅蓝色背景 */
+            padding: 20px;
+            min-width: 150px;
+            /* 设置最小宽度 */
+            max-width: 40%;
+            /* 设置最大宽度 */
+        }
+
+        .center {
+            background-color: #d7f3e3;
+            /* 淡绿色背景 */
+            padding: 20px;
+            overflow-y: auto;
+            /* 主操作区内容多时可滚动 */
+            flex-grow: 1;
+            /* 中间部分扩展填充剩余空间 */
+        }
+
+        .right {
+            background-color: #ffe8e8;
+            /* 浅红色背景 */
+            padding: 20px;
+            min-width: 150px;
+            /* 设置最小宽度 */
+            max-width: 40%;
+            /* 设置最大宽度 */
+        }
+
+        .resize-bar {
+            width: 10px;
+            background-color: #ccc;
+            cursor: col-resize;
+            position: relative;
+        }
+
+        footer {
+            background-color: #00264d;
+            /* 深蓝色 */
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>欢迎来到我的网站</h1>
+    </header>
+
+    <main>
+        <div class="left" id="left">
+            <h2>左边栏</h2>
+            <p>这里是左侧边栏的内容。</p>
+        </div>
+        <div class="resize-bar" id="resizeBarLeft"></div>
+        <div class="center" id="center">
+            <h2>主操作区</h2>
+            <p>这里是主要内容的操作区。</p>
+            <!-- 添加更多内容以测试滚动 -->
+            <p>更多内容...</p>
+            <p>更多内容...</p>
+            <p>更多内容...</p>
+            <p>更多内容...</p>
+            <p>更多内容...</p>
+        </div>
+        <div class="resize-bar" id="resizeBarRight"></div>
+        <div class="right" id="right">
+            <h2>右边栏</h2>
+            <p>这里是右侧边栏的内容。</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>版权所有 © 2025 我的公司</p>
+    </footer>
+
+    <script>
+        function createResizable(leftElement, rightElement, resizeBar) {
+            let isResizing = false;
+
+            resizeBar.addEventListener('mousedown', (e) => {
+                isResizing = true;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isResizing) return;
+                const newWidth = e.clientX - leftElement.getBoundingClientRect().left;
+                const maxWidth = window.innerWidth * 0.4; // 最大宽度为窗口宽度的40%
+                const minWidth = 150; // 最小宽度
+
+                if (newWidth > minWidth && newWidth < maxWidth) {
+                    leftElement.style.width = `${newWidth}px`;
+                    rightElement.style.width = `calc(100% - ${newWidth + resizeBar.offsetWidth}px)`;
+                }
+            });
+
+            document.addEventListener('mouseup', (e) => {
+                isResizing = false;
+            });
+        }
+
+        createResizable(document.getElementById('left'), document.getElementById('center'), document.getElementById('resizeBarLeft'));
+        createResizable(document.getElementById('center'), document.getElementById('right'), document.getElementById('resizeBarRight'));
+    </script>
+
+</body>
+
+</html>
