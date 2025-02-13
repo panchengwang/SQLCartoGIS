@@ -11,7 +11,7 @@ class UserServer extends Server
     public function __construct()
     {
         parent::__construct();
-        $this->_dbname = "sc_user_db";
+        $this->_dbname = USERDBNAME;
     }
 
     public function __destruct()
