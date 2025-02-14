@@ -6,3 +6,4 @@ define("USERDBNAME", "sc_master_db");
 define("DATADBNAME", "sc_node_db");
 define("USERNAME", "pcwang");
 define("PASSWORD", "");
+
