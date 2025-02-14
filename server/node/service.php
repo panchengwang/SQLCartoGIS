@@ -12,6 +12,9 @@ function makeResponseAndExit($success, $message)
     exit(0);
 }
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header('Content-type: text/plain');
 
 // 检查客户端是否发送过来request参数 
