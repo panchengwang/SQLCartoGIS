@@ -27,6 +27,8 @@ class UserServer extends Server
                 return;
             }
             $this->createUser();
+        }else if($this->_request->type === "USER_REGISTER"){
+            
         } else {
             parent::process();
         }
